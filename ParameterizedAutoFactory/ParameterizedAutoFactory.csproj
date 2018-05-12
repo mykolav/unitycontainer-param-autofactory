@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Unity.Abstractions">
+      <HintPath>..\..\unity\Container\src\bin\Debug\netstandard2.0\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container">
+      <HintPath>..\..\unity\Container\src\bin\Debug\netstandard2.0\Unity.Container.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
