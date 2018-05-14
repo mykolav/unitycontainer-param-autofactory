@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Unity;
 using Unity.Builder;
@@ -24,8 +25,13 @@ namespace ParameterizedAutoFactory
             if (!type.IsFunc())
                 return;
 
-            //context.Existing = ...;
+            context.Existing = CreateFuncFrom(type);
             context.BuildComplete = true;
+        }
+
+        private object CreateFuncFrom(Type funcType)
+        {
+            return null;
         }
     }
 }
