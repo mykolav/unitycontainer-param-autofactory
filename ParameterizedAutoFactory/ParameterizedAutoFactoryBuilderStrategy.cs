@@ -21,8 +21,8 @@ namespace ParameterizedAutoFactory
             if (_container.Registrations.Any(r => r.RegisteredType == type))
                 return;
 
-            //if (type.IsFunc())
-            // ...
+            if (!type.IsFunc())
+                return;
 
             //context.Existing = ...;
             context.BuildComplete = true;

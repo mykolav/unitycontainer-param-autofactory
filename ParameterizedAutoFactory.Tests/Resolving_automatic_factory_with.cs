@@ -3,10 +3,10 @@ using Xunit;
 
 namespace ParameterizedAutoFactory.Tests
 {
-    public class Can_resolve_automatic_factory_with
+    public class Resolving_automatic_factory_with
     {
         [Fact]
-        public void Zero_params()
+        public void Zero_params_succeeds()
         {
             // Arrange
             // Act
@@ -15,7 +15,7 @@ namespace ParameterizedAutoFactory.Tests
         }
 
         [Fact]
-        public void One_param()
+        public void One_param_succeeds()
         {
             // Arrange
             // Act
@@ -24,7 +24,16 @@ namespace ParameterizedAutoFactory.Tests
         }
 
         [Fact]
-        public void Two_params()
+        public void Two_params_succeeds()
+        {
+            // Arrange
+            // Act
+            // Assert
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void One_param_for_type_with_ctor_with_two_params_of_same_type_throws()
         {
             // Arrange
             // Act
