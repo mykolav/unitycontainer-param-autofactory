@@ -5,7 +5,7 @@ using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
 using Unity;
 using Xunit;
 
-namespace ParameterizedAutoFactory.Tests.Automatic_factory_creates_instance_of
+namespace ParameterizedAutoFactory.Tests.Automatic_factory.Creates_instance_of
 {
     public class Type_with_ctor_with_one_simple_param_where
     {
