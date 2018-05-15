@@ -1,5 +1,6 @@
 using System;
 using FluentAssertions;
+using ParameterizedAutoFactory.Tests.Support;
 using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
 using Unity;
 using Xunit;
@@ -15,7 +16,7 @@ namespace ParameterizedAutoFactory.Tests.Automatic_factory_creates_instance_of
         public void Zero_params_are_supplied_through_factory()
         {
             // Arrange
-            var container = new UnityContainer();
+            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
 
             // Act
             var create = container.Resolve<Func<TypeWithCtorWithTwoDependencyParams>>();
@@ -31,7 +32,7 @@ namespace ParameterizedAutoFactory.Tests.Automatic_factory_creates_instance_of
         public void First_param_is_supplied_through_factory()
         {
             // Arrange
-            var container = new UnityContainer();
+            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
             var typeWithParameterlessCtor = new TypeWithParameterlessCtor();
 
             // Act
@@ -50,7 +51,7 @@ namespace ParameterizedAutoFactory.Tests.Automatic_factory_creates_instance_of
         public void Second_param_is_supplied_through_factory()
         {
             // Arrange
-            var container = new UnityContainer();
+            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
             var typeWithCtorWithOneDependencyParam = 
                 new TypeWithCtorWithOneDependencyParam(
                     new TypeWithParameterlessCtor()
@@ -74,7 +75,7 @@ namespace ParameterizedAutoFactory.Tests.Automatic_factory_creates_instance_of
         public void Both_params_are_supplied_through_factory()
         {
             // Arrange
-            var container = new UnityContainer();
+            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
             var typeWithParameterlessCtor = new TypeWithParameterlessCtor();
             var typeWithCtorWithOneDependencyParam = 
                 new TypeWithCtorWithOneDependencyParam(

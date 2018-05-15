@@ -5,7 +5,15 @@ namespace ParameterizedAutoFactory
 {
     internal static class TypeExtensions
     {
-        public static bool IsFunc(this Type type)
+        public static bool IsParameterizedFunc(this Type type)
+        {
+            var isParameterizedFunc =
+                type.IsFunc() &&
+                type.GetGenericArguments().Length > 1;
+            return isParameterizedFunc;
+        }
+
+        private static bool IsFunc(this Type type)
         {
             var isFunc = 
                 type.IsDelegate() &&

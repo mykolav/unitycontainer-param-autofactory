@@ -1,5 +1,6 @@
 using System;
 using FluentAssertions;
+using ParameterizedAutoFactory.Tests.Support;
 using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
 using Unity;
 using Xunit;
@@ -15,7 +16,7 @@ namespace ParameterizedAutoFactory.Tests.Automatic_factory_creates_instance_of
         public void Zero_params_are_supplied_through_factory()
         {
             // Arrange
-            var container = new UnityContainer();
+            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
 
             // Act
             var create = container.Resolve<Func<TypeWithCtorWithOneDependencyParam>>();
@@ -30,7 +31,7 @@ namespace ParameterizedAutoFactory.Tests.Automatic_factory_creates_instance_of
         public void One_param_is_supplied_through_factory()
         {
             // Arrange
-            var container = new UnityContainer();
+            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
             var typeWithParameterlessCtor = new TypeWithParameterlessCtor();
 
             // Act
