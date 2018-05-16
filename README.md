@@ -36,7 +36,7 @@ public class Wombat
 }
 
 [Fact]
-public void Value_supplied_as_factory_parameter_overrides_corresponding_constructor_parameter()
+public void Value_supplied_as_factory_parameter_overrides_matching_constructor_parameter()
 {
     // Setup expected values
     var expectedGadget = new Gadget();
