@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using Unity.Builder;
 using Unity.Builder.Selection;
 using Unity.ObjectBuilder.BuildPlan.DynamicMethod.Creation;
@@ -27,49 +28,61 @@ namespace ParameterizedAutoFactory
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
 
-            if (context.CurrentOperation is BuildOperation operation &&
-                operation.TypeBeingConstructed == _targetType)
+            if (!(context.CurrentOperation is BuildOperation operation) ||
+                 operation.TypeBeingConstructed != _targetType)
             {
-                if (dependencyType == _parameterType)
-                {
-                    EnsureSingleParameterOfTargetType(context);
-
-                    var resolver = Value.GetResolverPolicy(dependencyType);
-                    return resolver;
-                }
+                return null;
             }
 
-            return null;
-        }
+            if (dependencyType != _parameterType)
+                return null;
 
-        private void EnsureSingleParameterOfTargetType(IBuilderContext context)
-        {
             var selectedConstructor = GetSelectedConstructorOrNull(context);
+            // In case we did not found a constructor suitable
+            // to be used by UnityContainer to create an instance of _targetType,
+            // we do not try to report it ourself.
+            // Instead we just ignore it here and let Unity's code deal with the situation.
+            // 
+            // In case we found the constructor Unity is going to use to create
+            // an instance of _targetType, let's make sure the ctor has only
+            // one parameter of type _parameterType.
+            // If there are multiple parameters of type _parameterType,
+            // it's an ambiguous case and we refuse to handle it implicitly.
             if (selectedConstructor != null)
-            {
-                var constructorParameters = selectedConstructor.Constructor.GetParameters();
-                var ctorParametersOfType = constructorParameters
-                    .Where(ctorParameter => ctorParameter.ParameterType == _parameterType)
-                    .ToList();
+                EnsureSingleParameterOfTargetType(selectedConstructor.Constructor);
 
-                if (ctorParametersOfType.Count > 1)
-                {
-                    var constructorSignature = DynamicMethodConstructorStrategy
-                        .CreateSignatureString(selectedConstructor.Constructor);
+            var resolver = Value.GetResolverPolicy(dependencyType);
+            return resolver;
 
-                    throw new InvalidOperationException(
-                        $"The constructor {constructorSignature} " +
-                        $"has {ctorParametersOfType.Count} parameters " +
-                        $"of type {_parameterType.FullName}." +
-                        $"{Environment.NewLine}" +
-                        "Do not know which one you meant to override."
-                    );
-                }
-            }
         }
 
-        private SelectedConstructor GetSelectedConstructorOrNull(
-            IBuilderContext context)
+        private void EnsureSingleParameterOfTargetType(ConstructorInfo constructor)
+        {
+            var constructorParameters = constructor.GetParameters();
+            var ctorParametersOfType = constructorParameters
+                .Where(ctorParameter => ctorParameter.ParameterType == _parameterType)
+                .ToList();
+
+            if (ctorParametersOfType.Count <= 1)
+                return;
+
+            var constructorSignature = DynamicMethodConstructorStrategy
+                .CreateSignatureString(constructor);
+
+            throw new InvalidOperationException(
+                $"The constructor {constructorSignature} " +
+                $"has {ctorParametersOfType.Count} parameters " +
+                $"of type {_parameterType.FullName}." +
+                $"{Environment.NewLine}" +
+                "Do not know which one you meant to override."
+            );
+        }
+
+        /// <summary>
+        /// Hopefully, this method manages to find the same constructor
+        /// that UnityContainer is going to use to create an instance of <see cref="_targetType"/>
+        /// </summary>
+        private SelectedConstructor GetSelectedConstructorOrNull(IBuilderContext context)
         {
             var selector = context.Policies.GetPolicy<IConstructorSelectorPolicy>(
                 context.OriginalBuildKey, 
