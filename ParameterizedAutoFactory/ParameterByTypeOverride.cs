@@ -9,6 +9,12 @@ using Unity.Resolution;
 
 namespace ParameterizedAutoFactory
 {
+    /// <summary>
+    /// A <see cref="ResolverOverride"/> class that overrides
+    /// a parameter based on its type passed to a constructor
+    /// of the target type.
+    /// This checks to see if the current type being built is the right one
+    /// </summary>
     public class ParameterByTypeOverride : ResolverOverride
     {
         private readonly Type _targetType;
@@ -38,7 +44,7 @@ namespace ParameterizedAutoFactory
                 return null;
 
             var selectedConstructor = GetSelectedConstructorOrNull(context);
-            // In case we did not found a constructor suitable
+            // In case we did not find a constructor suitable
             // to be used by UnityContainer to create an instance of _targetType,
             // we do not try to report it ourself.
             // Instead we just ignore it here and let Unity's code deal with the situation.
