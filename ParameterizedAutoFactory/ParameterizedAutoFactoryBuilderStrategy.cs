@@ -32,6 +32,7 @@ namespace ParameterizedAutoFactory
             context.BuildComplete = true;
         }
 
+
         private object CreateAutoFactory(Type autoFactoryType)
         {
             var autoFactoryGenericArguments = autoFactoryType.GetGenericArguments();
@@ -40,10 +41,17 @@ namespace ParameterizedAutoFactory
 
             //Func<int, string, object> parameterizedAutoFactory0 = (param0, param1) =>
             //{
-            //    var resolverOverrides0 = new []
+            //    var resolverOverrides0 = new ResolverOverride[]
             //    {
-            //        new DependencyOverride(autoFactoryParamTypes[0], param0).OnType(typeCreatedByAutoFactory),
-            //        new DependencyOverride(autoFactoryParamTypes[1], param1).OnType(typeCreatedByAutoFactory)
+            //        new ParameterByTypeOverride(
+            //            /*targetType*/ typeCreatedByAutoFactory, 
+            //            /*parameterType*/ autoFactoryParamTypes[0], 
+            //            /*parameterValue*/ param0),
+
+            //        new ParameterByTypeOverride(
+            //            /*targetType*/ typeCreatedByAutoFactory, 
+            //            /*parameterType*/ autoFactoryParamTypes[1], 
+            //            /*parameterValue*/ param1)
             //    };
 
             //    var resolvedInstance = _container.Resolve(
@@ -53,9 +61,13 @@ namespace ParameterizedAutoFactory
             //    return resolvedInstance;
             //};
 
-            var typeOfDependencyOverride = typeof(DependencyOverride);
-            var miOnType = typeOfDependencyOverride.GetMethod("OnType", new [] { typeof(Type) });
-            var ciCtor = typeOfDependencyOverride.GetConstructor(new [] { typeof(Type), typeof(object) });
+            var ciParameterByTypeOverride = typeof(ParameterByTypeOverride)
+                .GetConstructor(new []
+                {
+                    /*targetType*/ typeof(Type), 
+                    /*parameterType*/ typeof(Type), 
+                    /*parameterValue*/ typeof(object)
+                });
             
             var autoFactoryParams = new List<ParameterExpression>();
             var resolverOverrides = new List<Expression>();
@@ -66,15 +78,15 @@ namespace ParameterizedAutoFactory
                 autoFactoryParams.Add(Expression.Parameter(paramType, $"param{i}"));
 
                 resolverOverrides.Add(
-                    // new DependencyOverride(autoFactoryParamTypes[i], param{i}).OnType(typeCreatedByAutoFactory)
-                    Expression.Call(
-                        Expression.New(
-                            ciCtor, 
-                            Expression.Constant(paramType, typeof(Type)), 
-                            Expression.Convert(autoFactoryParams[i], typeof(object))
-                        ),
-                        miOnType,
-                        Expression.Constant(typeCreatedByAutoFactory)
+                    //new ParameterByTypeOverride(
+                    //    /*targetType*/ typeCreatedByAutoFactory, 
+                    //    /*parameterType*/ autoFactoryParamTypes[i], 
+                    //    /*parameterValue*/ param{i}),
+                    Expression.New(
+                        ciParameterByTypeOverride, 
+                        Expression.Constant(typeCreatedByAutoFactory),
+                        Expression.Constant(paramType, typeof(Type)), 
+                        Expression.Convert(autoFactoryParams[i], typeof(object))
                     )
                 );
             }
