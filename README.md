@@ -4,6 +4,9 @@ A [UnityContainer](https://github.com/unitycontainer) extension inspired by [Aut
 
 # What is it for?
 
+It lets you manually pass certain parameters to the constructor of a dependency which is being instantiated.  
+While at the same time taking advantage of the container to inject all the parameters you don't want to pass manually.  
+
 Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 
 ```csharp
