@@ -5,7 +5,12 @@ using Unity.Builder.Strategy;
 
 namespace ParameterizedAutoFactory
 {
-    public class ParameterizedAutoFactoryBuilderStrategy : BuilderStrategy
+    /// <summary>
+    /// The <see cref="PreBuildUp" /> method of this class gets
+    /// called while Unity is trying to resolve a dependency of
+    /// the type's instance being created at that moment.
+    /// </summary>
+    internal class ParameterizedAutoFactoryBuilderStrategy : BuilderStrategy
     {
         private readonly UnityContainer _container;
 

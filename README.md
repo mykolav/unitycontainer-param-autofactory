@@ -7,63 +7,68 @@ A [UnityContainer](https://github.com/unitycontainer) extension inspired by [Aut
 Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 
 ```csharp
-public class Widget { }
-public class Gadget { }
-
-public class Frobnitz
-{
-    public Frobnitz(Widget widget, Gadget gadget)
-    {
-        Widget = widget;
-        Gadget = gadget;
-    }
-
-    public Widget Widget { get; }
-    public Gadget Gadget { get; }
-}
-
-public class Wombat
-{
-    private readonly Func<Gadget, Frobnitz> _createFrobnitz;
-
-    public Wombat(Func<Gadget, Frobnitz> createFrobnitz)
-    {
-        _createFrobnitz = createFrobnitz;
-    }
-
-    public Frobnitz Bork(Gadget gadget)
-        => _createFrobnitz(gadget);
-}
-
-[Fact]
-public void Value_supplied_as_factory_parameter_overrides_matching_constructor_parameter()
-{
-    // Setup expected values
-    var expectedGadget = new Gadget();
-
-    // Setup the container
-    var container = new UnityContainer()
-        .AddNewExtension<UnityParameterizedAutoFactoryExtension>();
-
-    // Let's try to get the extension to
-    // generate a parameterized factory for
-    // the resolved instance of class Wombat.
-    var wombat = container.Resolve<Wombat>();
-    var frobnitz = wombat.Bork(expectedGadget);
-
-    // Assert
-    frobnitz.Widget.Should().NotBeNull();
-    frobnitz.Gadget.Should().BeSameAs(expectedGadget);
-}
-
+/*  1 */ public class Widget { }
+/*  2 */ public class Gadget { }
+/*  3 */ 
+/*  4 */ public class Frobnitz
+/*  5 */ {
+/*  6 */     public Frobnitz(Widget widget, Gadget gadget)
+/*  7 */     {
+/*  8 */         Widget = widget;
+/*  9 */         Gadget = gadget;
+/* 10 */     }
+/* 11 */ 
+/* 12 */     public Widget Widget { get; }
+/* 13 */     public Gadget Gadget { get; }
+/* 14 */ }
+/* 15 */ 
+/* 16 */ public class Wombat
+/* 17 */ {
+/* 18 */     private readonly Func<Gadget, Frobnitz> _createFrobnitz;
+/* 19 */ 
+/* 20 */     public Wombat(Func<Gadget, Frobnitz> createFrobnitz)
+/* 21 */     {
+/* 22 */         _createFrobnitz = createFrobnitz;
+/* 23 */     }
+/* 24 */ 
+/* 25 */     public Frobnitz Bork(Gadget gadget)
+/* 26 */         => _createFrobnitz(gadget);
+/* 27 */ }
+/* 28 */ 
+/* 29 */ [Fact]
+/* 30 */ public void Value_supplied_as_factory_parameter_overrides_matching_constructor_parameter()
+/* 31 */ {
+/* 32 */     // Setup expected values.
+/* 33 */     var expectedGadget = new Gadget();
+/* 34 */ 
+/* 35 */     // Setup the container and add the extension.
+/* 36 */     var container = new UnityContainer()
+/* 37 */         .AddNewExtension<UnityParameterizedAutoFactoryExtension>();
+/* 38 */ 
+/* 39 */     // Let's try to get the extension to
+/* 40 */     // generate a parameterized factory for
+/* 41 */     // the resolved instance of class Wombat.
+/* 42 */     var wombat = container.Resolve<Wombat>();
+/* 43 */     var frobnitz = wombat.Bork(expectedGadget);
+/* 44 */ 
+/* 45 */     // Assert
+/* 46 */     frobnitz.Widget.Should().NotBeNull();
+/* 47 */     frobnitz.Gadget.Should().BeSameAs(expectedGadget);
+/* 48 */ } 
 ```
 
-Now let's break down our example a little.  
-[TODO]
+Now, let's break down our example a little.  
+
+- The `Wombat` class has a dependency on `Func<Gadget, Frobnitz>`.  
+- When an instance of `Wombat` is resolved from the container on line 42, `ParameterizedAutoFactory` kicks in and generates an implementation of the `Func` &mdash; which is the *parameterized autofactory*.  
+- When invoked on line 26, the generated autofactory implementation `_createFrobnitz` passes its `Gadget` parameter's value to the parameter `gadget` of `Frobnitz`'s constructor (line 6). 
+- The `gadget` parameter of `Frobnitz` (line 6) was picked up based on its type matching the `Gadget` type of the autofactory's parameter.
+- The `Widget` parameters of `Frobnitz`'s constructor does not many any parameter of the `Func<Gadget, Frobnitz>` autofactory. As a result it is injected by the container (in contrast to being supplied by the factory).
+- If the `Wombat` class had a dependency on `Func<Gadget, Widget, Frobnitz>`, both `Frobnitz`'s parameters whould have been supplied by the autofactory.  
 
 # How to use it?
 
-One way to register the extension in container is to use the `Unity.UnityContainerExtensions.AddNewExtension` extension method
+One way to register the extension in container is to use the `Unity.UnityContainerExtensions.AddNewExtension` extension method.
 
 ```csharp
 var container = new UnityContainer()

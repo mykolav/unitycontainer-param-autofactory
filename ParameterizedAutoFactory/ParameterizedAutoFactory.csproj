@@ -5,12 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Unity.Abstractions">
-      <HintPath>..\..\unity\Container\src\bin\Debug\netstandard2.0\Unity.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Container">
-      <HintPath>..\..\unity\Container\src\bin\Debug\netstandard2.0\Unity.Container.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Unity.Container" Version="5.8.6" />
   </ItemGroup>
 
 </Project>

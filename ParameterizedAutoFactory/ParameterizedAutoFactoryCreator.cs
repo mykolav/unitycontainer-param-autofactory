@@ -8,6 +8,10 @@ using Unity.Resolution;
 
 namespace ParameterizedAutoFactory
 {
+    /// <summary>
+    /// This class builds a parameterized autofactory specified by
+    /// a type of kind Func{TArg0, ..., TResult}
+    /// </summary>
     internal class ParameterizedAutoFactoryCreator
     {
         private readonly IUnityContainer _container;
