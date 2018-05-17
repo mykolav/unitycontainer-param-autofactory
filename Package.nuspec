@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>UnityContainerParameterizedAutoFactory</id>
+    <version>0.0.1</version>
+    <authors>Mykola Musiienko</authors>
+    <owners>Mykola Musiienko</owners>
+    <licenseUrl>https://github.com/mykolav/unitycontainer-param-autofactory/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/mykolav/unitycontainer-param-autofactory/blob/master/LICENSE</projectUrl>
+    <iconUrl>https://avatars1.githubusercontent.com/u/14280254</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Parameterized AutoFactory extension for Unity Container</description>
+    <releaseNotes>The initial version.</releaseNotes>
+    <copyright>Copyright © Mykola Musiienko 2018</copyright>
+    <tags>Unity Container unitycontainer Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</tags>
+  </metadata>
+  <files>
+    <file src="..." target="..." exclude="**\*.nupkg" />
+  </files>
+</package>
