@@ -60,11 +60,11 @@ Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 Now, let's break down our example a little.  
 
 - The `Wombat` class has a dependency on `Func<Gadget, Frobnitz>`.  
-- When an instance of `Wombat` is being resolved from the container on line 42, `ParameterizedAutoFactory` kicks in and generates an implementation of the `Func` &mdash; which is the *parameterized autofactory*.  
+- When an instance of `Wombat` is being resolved from the container on line 42, `ParameterizedAutoFactory` kicks in and generates an implementation of the `Func<...>` &mdash; which is the *parameterized autofactory*.  
 - When invoked on line 26, the generated autofactory implementation `_createFrobnitz` passes its `Gadget` parameter's value to the parameter `gadget` of `Frobnitz`'s constructor (line 6). 
 - The `gadget` parameter of `Frobnitz` (line 6) was picked up based on its type matching the `Gadget` type of the autofactory's parameter.
-- The `Widget` parameters of `Frobnitz`'s constructor does not many any parameter of the `Func<Gadget, Frobnitz>` autofactory. As a result it is injected by the container (in contrast to being supplied by the factory).
-- If the `Wombat` class had a dependency on `Func<Gadget, Widget, Frobnitz>`, both `Frobnitz`'s parameters whould have been supplied by the autofactory.  
+- The `Widget` parameter of `Frobnitz`'s constructor does not match any parameter of the `Func<Gadget, Frobnitz>` autofactory. As a result it is injected by the container (in contrast to being supplied by the factory).
+- If the `Wombat` class had a dependency on `Func<Gadget, Widget, Frobnitz>`, both `Frobnitz`'s parameters whould have been supplied by the autofactory generated for this dependency.  
 
 # How to use it?
 
