@@ -53,7 +53,7 @@ namespace ParameterizedAutoFactory
             // an instance of _targetType, let's make sure the ctor has only
             // one parameter of type _parameterType.
             // If there are multiple parameters of type _parameterType,
-            // it's an ambiguous case and we refuse to handle it implicitly.
+            // it's an ambiguous case and we refuse implicitly handling it.
             if (selectedConstructor != null)
                 EnsureSingleParameterOfTargetType(selectedConstructor.Constructor);
 
