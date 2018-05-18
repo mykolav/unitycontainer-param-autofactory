@@ -55,8 +55,8 @@ Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 /* 43 */     var frobnitz = wombat.Bork(expectedGadget);
 /* 44 */ 
 /* 45 */     // Assert
-/* 46 */     frobnitz.Widget.Should().NotBeNull();
-/* 47 */     frobnitz.Gadget.Should().BeSameAs(expectedGadget);
+/* 46 */     frobnitz.Widget.Should().NotBeNull();              // Widget was injected by the container.
+/* 47 */     frobnitz.Gadget.Should().BeSameAs(expectedGadget); // Gadget was supplied through the factory's param.
 /* 48 */ } 
 ```
 
