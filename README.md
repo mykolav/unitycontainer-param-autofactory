@@ -56,8 +56,9 @@ Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 /* 44 */ 
 /* 45 */     // Assert
 /* 46 */     frobnitz.Widget.Should().NotBeNull();              // Widget was injected by the container.
-/* 47 */     frobnitz.Gadget.Should().BeSameAs(expectedGadget); // Gadget was supplied through the param of _createFrobnitz.
-/* 48 */ } 
+/* 47 */     frobnitz.Gadget.Should().BeSameAs(expectedGadget); // Gadget was supplied through 
+/* 48 */                                                        // the param of _createFrobnitz.
+/* 49 */ } 
 ```
 
 Now, let's break down our example a little.  
