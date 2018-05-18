@@ -55,14 +55,14 @@ namespace ParameterizedAutoFactory
             // If there are multiple parameters of type _parameterType,
             // it's an ambiguous case and we refuse implicitly handling it.
             if (selectedConstructor != null)
-                EnsureSingleParameterOfTargetType(selectedConstructor.Constructor);
+                EnsureSingleParameterOfOverriddenType(selectedConstructor.Constructor);
 
             var resolver = Value.GetResolverPolicy(dependencyType);
             return resolver;
 
         }
 
-        private void EnsureSingleParameterOfTargetType(ConstructorInfo constructor)
+        private void EnsureSingleParameterOfOverriddenType(ConstructorInfo constructor)
         {
             var constructorParameters = constructor.GetParameters();
             var ctorParametersOfType = constructorParameters
