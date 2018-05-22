@@ -1,8 +1,7 @@
-using Unity;
 using Unity.Builder;
 using Unity.Extension;
 
-namespace ParameterizedAutoFactory
+namespace Unity.ParameterizedAutoFactory
 {
     /// <summary>
     /// This is a unity extension class.

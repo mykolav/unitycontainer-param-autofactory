@@ -7,13 +7,16 @@ using Unity.ObjectBuilder.BuildPlan.DynamicMethod.Creation;
 using Unity.Policy;
 using Unity.Resolution;
 
-namespace ParameterizedAutoFactory
+namespace Unity.ParameterizedAutoFactory
 {
     /// <summary>
     /// A <see cref="ResolverOverride"/> class that overrides
     /// a parameter based on its type passed to a constructor
     /// of the target type.
-    /// This checks to see if the current type being built is the right one
+    /// This checks to see
+    ///     1) if the current type being built is the right one
+    ///     2) if the ctor selected to instantiate the current type
+    ///        has only one dependency (i. e. parameter) of the given type.
     /// </summary>
     public class ParameterByTypeOverride : ResolverOverride
     {

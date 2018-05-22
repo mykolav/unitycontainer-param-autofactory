@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace ParameterizedAutoFactory
+namespace Unity.ParameterizedAutoFactory
 {
     internal static class TypeExtensions
     {
@@ -18,7 +18,7 @@ namespace ParameterizedAutoFactory
         {
             var isParameterizedFunc =
                 type.IsFunc() &&
-                type.GetGenericArguments().Length > 1;
+                type.GetTypeInfo().GetGenericArguments().Length > 1;
             return isParameterizedFunc;
         }
 

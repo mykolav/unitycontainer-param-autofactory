@@ -2,6 +2,7 @@
 using FluentAssertions;
 using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
 using Unity;
+using Unity.ParameterizedAutoFactory;
 using Xunit;
 
 namespace ParameterizedAutoFactory.Tests

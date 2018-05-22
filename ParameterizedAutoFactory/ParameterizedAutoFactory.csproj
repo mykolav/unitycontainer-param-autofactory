@@ -1,7 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard1.5</TargetFramework>
+    <Authors>Mykola Musiienko</Authors>
+    <Company />
+    <PackageId>UnityContainerParameterizedAutoFactory</PackageId>
+    <Product>UnityContainerParameterizedAutoFactory</Product>
+    <Copyright>Mykola Musiienko 2018</Copyright>
+    <PackageLicenseUrl>https://github.com/mykolav/unitycontainer-param-autofactory/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/mykolav/unitycontainer-param-autofactory</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mykolav/unitycontainer-param-autofactory</RepositoryUrl>
+    <PackageTags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</PackageTags>
+    <Description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
+Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; while resolving types with such a dependency.</Description>
+    <Version>0.0.1</Version>
+    <PackageIconUrl>https://avatars1.githubusercontent.com/u/14280254</PackageIconUrl>
+	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <AssemblyName>Unity.ParameterizedAutoFactory</AssemblyName>
+    <RootNamespace>Unity.ParameterizedAutoFactory</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

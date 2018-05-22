@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Unity;
 using Unity.Resolution;
 
-namespace ParameterizedAutoFactory
+namespace Unity.ParameterizedAutoFactory
 {
     /// <summary>
     /// This class builds a parameterized autofactory specified by
@@ -32,7 +31,7 @@ namespace ParameterizedAutoFactory
                 );
             }
 
-            var autoFactoryGenericArguments = autoFactoryType.GetGenericArguments();
+            var autoFactoryGenericArguments = autoFactoryType.GetTypeInfo().GetGenericArguments();
 
             _autoFactoryParamTypes = autoFactoryGenericArguments
                 .Take(autoFactoryGenericArguments.Length - 1)
@@ -131,7 +130,7 @@ namespace ParameterizedAutoFactory
         private static ConstructorInfo GetParameterByTypeOverrideCtorInfo()
         {
             return typeof(ParameterByTypeOverride)
-                .GetConstructor(new []
+                .GetTypeInfo().GetConstructor(new []
                 {
                     /*targetType*/ typeof(Type), 
                     /*parameterType*/ typeof(Type), 

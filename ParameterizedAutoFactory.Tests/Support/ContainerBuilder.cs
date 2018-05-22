@@ -1,4 +1,5 @@
 ﻿using Unity;
+using Unity.ParameterizedAutoFactory;
 
 namespace ParameterizedAutoFactory.Tests.Support
 {

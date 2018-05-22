@@ -1,9 +1,8 @@
 using System.Linq;
-using Unity;
 using Unity.Builder;
 using Unity.Builder.Strategy;
 
-namespace ParameterizedAutoFactory
+namespace Unity.ParameterizedAutoFactory
 {
     /// <summary>
     /// The <see cref="PreBuildUp" /> method of this class gets
