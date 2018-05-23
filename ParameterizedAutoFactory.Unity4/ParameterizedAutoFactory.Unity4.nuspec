@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ParameterizedAutoFactory.Unity4</id>
+    <version>0.0.1</version>
+    <authors>Mykola Musiienko</authors>
+    <owners>Mykola Musiienko</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/mykolav/unitycontainer-param-autofactory/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/mykolav/unitycontainer-param-autofactory</projectUrl>
+    <iconUrl>https://avatars1.githubusercontent.com/u/14280254</iconUrl>
+    <description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
+Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; while resolving types with such a dependency.
+This package is compatible with Unity v4.0.1</description>
+    <copyright>Copyright © Mykola Musiienko 2018</copyright>
+    <tags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</tags>
+    <repository url="https://github.com/mykolav/unitycontainer-param-autofactory" />
+	
+    <dependencies>
+      <group>
+        <dependency id="Unity" version="4.0.1" />
+      </group>
+    </dependencies>  
+  </metadata>
+  <files>
+    <file src="bin\Release\ParameterizedAutoFactory.Unity4.dll" target="lib\portable-net45+win8+wp8+wpa81\ParameterizedAutoFactory.Unity4.dll" />
+    <file src="bin\Release\ParameterizedAutoFactory.Unity4.pdb" target="lib\portable-net45+win8+wp8+wpa81\ParameterizedAutoFactory.Unity4.pdb" />
+    <file src="bin\Release\ParameterizedAutoFactory.Unity.Core.dll" target="lib\portable-net45+win8+wp8+wpa81\ParameterizedAutoFactory.Unity.Core.dll" />
+    <file src="bin\Release\ParameterizedAutoFactory.Unity.Core.pdb" target="lib\portable-net45+win8+wp8+wpa81\ParameterizedAutoFactory.Unity.Core.pdb" />
+  </files>
+</package>

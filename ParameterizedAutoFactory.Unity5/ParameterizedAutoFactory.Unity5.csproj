@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.5</TargetFramework>
+    <Version>0.0.1</Version>
+    <Authors>Mykola Musiienko</Authors>
+    <Product>ParameterizedAutoFactory.Unity5</Product>
+    <Description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
+Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; while resolving types with such a dependency.
+This package is compatible with Unity v5.x</Description>
+    <Copyright>Copyright © Mykola Musiienko 2018</Copyright>
+    <PackageLicenseUrl>https://github.com/mykolav/unitycontainer-param-autofactory/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/mykolav/unitycontainer-param-autofactory</PackageProjectUrl>
+    <PackageIconUrl>https://avatars1.githubusercontent.com/u/14280254</PackageIconUrl>
+    <RepositoryUrl>https://github.com/mykolav/unitycontainer-param-autofactory</RepositoryUrl>
+    <PackageTags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</PackageTags>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>  
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Unity.Abstractions" Version="3.3.0" />
+    <PackageReference Include="Unity.Container" Version="5.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ParameterizedAutoFactory.Core\ParameterizedAutoFactory.Core.csproj" />
+  </ItemGroup>
+
+</Project>
