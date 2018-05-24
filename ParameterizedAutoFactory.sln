@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParameterizedAutoFactory.Un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParameterizedAutoFactory.Unity4", "ParameterizedAutoFactory.Unity4\ParameterizedAutoFactory.Unity4.csproj", "{8435E1FB-2350-4FAD-A096-2A23F226DE19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParameterizedAutoFactory.Core.Tests", "ParameterizedAutoFactory.Core.Tests\ParameterizedAutoFactory.Core.Tests.csproj", "{BBF2EB5E-D768-4797-9054-AF8A07B99AD8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C4BFF51E-36B9-4725-BB98-96B1F12EE239}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,18 @@ Global
 		{8435E1FB-2350-4FAD-A096-2A23F226DE19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8435E1FB-2350-4FAD-A096-2A23F226DE19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8435E1FB-2350-4FAD-A096-2A23F226DE19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF2EB5E-D768-4797-9054-AF8A07B99AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF2EB5E-D768-4797-9054-AF8A07B99AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF2EB5E-D768-4797-9054-AF8A07B99AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF2EB5E-D768-4797-9054-AF8A07B99AD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{10DD8681-E601-480D-857F-AF35EACA8ABF} = {C4BFF51E-36B9-4725-BB98-96B1F12EE239}
+		{B8BE2DF9-8141-4EFF-BAC3-AF1E426F5F65} = {C4BFF51E-36B9-4725-BB98-96B1F12EE239}
+		{BBF2EB5E-D768-4797-9054-AF8A07B99AD8} = {C4BFF51E-36B9-4725-BB98-96B1F12EE239}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B01795E-FFEB-416C-8BAF-F454CD5AFC7A}

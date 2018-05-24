@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using Unity.ParameterizedAutoFactory.Core.Implementation;
+using Unity.ParameterizedAutoFactory.Core;
 
 namespace ParameterizedAutoFactory.Unity4
 {

@@ -3,7 +3,7 @@ using Unity.Builder;
 using Unity.Builder.Selection;
 using Unity.Injection;
 using Unity.ObjectBuilder.BuildPlan.DynamicMethod.Creation;
-using Unity.ParameterizedAutoFactory.Core.Implementation;
+using Unity.ParameterizedAutoFactory.Core;
 using Unity.Policy;
 using Unity.Resolution;
 

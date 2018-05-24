@@ -4,14 +4,14 @@ using System.Reflection;
 
 namespace Unity.ParameterizedAutoFactory.Core
 {
-    public static class TypeExtensions
+    internal static class TypeExtensions
     {
         /// <summary>
-        /// This method finds a constructor that has
+        /// This method finds a constructor that
         ///     1) has excactly the same number of params as the number of elements in <see cref="paramTypes" />
         ///     2) parameters of the given types
         ///     3) are in the same order they are in <see cref="paramTypes" />
-        /// This method is built-in into netstandard-1.5,
+        /// A method with the same name and purpose is built-in in netstandard-1.5 and on,
         /// but we're out of luck as we have to target netstandard-1.1
         /// </summary>
         public static ConstructorInfo GetConstructor(

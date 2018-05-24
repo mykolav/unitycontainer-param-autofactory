@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Unity.ParameterizedAutoFactory.Core.Implementation
+namespace Unity.ParameterizedAutoFactory.Core
 {
     /// <summary>
     /// This class helps override a parameter of the target type's constructor based on that parameter's type.

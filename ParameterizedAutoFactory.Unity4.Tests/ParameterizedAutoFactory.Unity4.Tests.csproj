@@ -79,6 +79,7 @@
     <Compile Include="Automatic_factory\Creates_instance\When_null_supplied\To_type_with_ctor_with_two_dependency_params.cs" />
     <Compile Include="Automatic_factory\For_type_with\Ctor_with_dependecy_tree.cs" />
     <Compile Include="Automatic_factory\For_type_with\Ctor_with_two_params_of_same_type_with.cs" />
+    <Compile Include="Automatic_factory\Of_same_type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sandbox.cs" />
     <Compile Include="Support\ContainerBuilder.cs" />

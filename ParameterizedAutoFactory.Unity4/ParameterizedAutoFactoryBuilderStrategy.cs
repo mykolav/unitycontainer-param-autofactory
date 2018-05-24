@@ -14,9 +14,18 @@ namespace ParameterizedAutoFactory.Unity4
     {
         private readonly UnityContainer _container;
 
+        private readonly ParameterizedAutoFactoryProvider<
+            IUnityContainer,
+            ResolverOverride,
+            ParameterByTypeOverride> _autoFactoryProvider;
+
         public ParameterizedAutoFactoryBuilderStrategy(UnityContainer container)
         {
             _container = container;
+            _autoFactoryProvider = new ParameterizedAutoFactoryProvider<
+                IUnityContainer, 
+                ResolverOverride, 
+                ParameterByTypeOverride>(_container);
         }
 
         public override void PreBuildUp(IBuilderContext context)
@@ -26,14 +35,10 @@ namespace ParameterizedAutoFactory.Unity4
             if (_container.Registrations.Any(r => r.RegisteredType == type))
                 return;
 
-            if (!type.IsParameterizedFunc())
+            if (!_autoFactoryProvider.TryGetOrCreate(type, out var autoFactory))
                 return;
 
-            context.Existing = new ParameterizedAutoFactoryCreator<
-                IUnityContainer,
-                ResolverOverride,
-                ParameterByTypeOverride>(_container, type).Invoke();
-
+            context.Existing = autoFactory;
             context.BuildComplete = true;
         }
     }
