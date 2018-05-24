@@ -75,7 +75,7 @@ Now, let's break down our example a little.
 
 ## [Unity v4.0.1](https://github.com/unitycontainer/unity/tree/a370e3cd8c0f9aa5f505e896ef5225f42711d361)
 
-In case [Unity v4.0.1](https://github.com/unitycontainer/unity/tree/a370e3cd8c0f9aa5f505e896ef5225f42711d361) is used in your project, install [ParameterizedAutoFactory.Unity4](https://www.nuget.org/packages/ParameterizedAutoFactory.Unity5) version of this extension.
+In case [Unity v4.0.1](https://github.com/unitycontainer/unity/tree/a370e3cd8c0f9aa5f505e896ef5225f42711d361) is used in your project, install [ParameterizedAutoFactory.Unity4](https://www.nuget.org/packages/ParameterizedAutoFactory.Unity4) version of this extension.
 
 To install it run the following command in the [NuGet Package Manager Console](https://docs.microsoft.com/en-us/nuget/tools/package-manager-console).
 
