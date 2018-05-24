@@ -1,6 +1,6 @@
 # Parameterized Auto Factory for the Unity IoC Container
 
-A [UnityContainer](https://github.com/unitycontainer) extension inspired by [Autofac's Parameterized Instantiation](http://docs.autofac.org/en/latest/resolve/relationships.html#parameterized-instantiation-func-x-y-b)
+A [UnityContainer](https://github.com/unitycontainer) extension inspired by [Autofac's Parameterized Instantiation](http://docs.autofac.org/en/latest/resolve/relationships.html#parameterized-instantiation-func-x-y-b).
 
 # What is it for?
 
@@ -70,6 +70,32 @@ Now, let's break down our example a little.
 - The `Widget` parameter of `Frobnitz`'s constructor does not match any parameter of the `Func<Gadget, Frobnitz>` autofactory. As a result it is injected by the container (in contrast to being supplied by the factory).
 - If the `Wombat` class had a dependency on `Func<Gadget, Widget, Frobnitz>`, both `Frobnitz`'s parameters whould have been supplied by the autofactory generated for this dependency.  
 
+
+# Download and install
+
+## [Unity v4.0.1](https://github.com/unitycontainer/unity/tree/a370e3cd8c0f9aa5f505e896ef5225f42711d361)
+
+In case [Unity v4.0.1](https://github.com/unitycontainer/unity/tree/a370e3cd8c0f9aa5f505e896ef5225f42711d361) is used in your project, install [ParameterizedAutoFactory.Unity4](https://www.nuget.org/packages/ParameterizedAutoFactory.Unity5) version of this extension.
+
+To install it run the following command in the [NuGet Package Manager Console](https://docs.microsoft.com/en-us/nuget/tools/package-manager-console).
+
+```powershell
+Install-Package ParameterizedAutoFactory.Unity4
+```
+
+## [Unity v5.x](https://github.com/unitycontainer/unity/tree/v5.x)
+
+In case [Unity v5.x](https://github.com/unitycontainer/unity/tree/v5.x) is used in your project, install [ParameterizedAutoFactory.Unity5](https://www.nuget.org/packages/ParameterizedAutoFactory.Unity5) version of this extension.
+
+To install it run the following command in the [NuGet Package Manager Console](https://docs.microsoft.com/en-us/nuget/tools/package-manager-console).
+
+```powershell
+Install-Package ParameterizedAutoFactory.Unity5
+```
+   
+This will download all the binaries, and add necessary references to your project.
+
+
 # How to use it?
 
 One way to register the extension in container is to use the `Unity.UnityContainerExtensions.AddNewExtension` extension method.
@@ -87,6 +113,11 @@ var extension = (UnityParameterizedAutoFactoryExtension)container.Resolve(
 container.AddExtension(extension);
 
 ```
+
+# Thank you!
+
+- This extension is inspired by [Autofac's Parameterized Instantiation](http://docs.autofac.org/en/latest/resolve/relationships.html#parameterized-instantiation-func-x-y-b).
+- [UnityAutoMoq](https://github.com/thedersen/UnityAutoMoq) gave a great example of a Unity extension hooking into Unity's dependencies instantiation/resolution pipeline.
 
 # License
 

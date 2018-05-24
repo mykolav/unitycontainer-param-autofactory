@@ -141,3 +141,6 @@ _NCrunch*
 project.lock.json
 testresults.xml
 testresults.xml
+
+#NuGet packages
+*.nupkg
