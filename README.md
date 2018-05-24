@@ -117,7 +117,7 @@ container.AddExtension(extension);
 # Thank you!
 
 - This extension is inspired by [Autofac's Parameterized Instantiation](http://docs.autofac.org/en/latest/resolve/relationships.html#parameterized-instantiation-func-x-y-b).
-- [UnityAutoMoq](https://github.com/thedersen/UnityAutoMoq) gave a great example of a Unity extension hooking into Unity's dependencies instantiation/resolution pipeline.
+- [UnityAutoMoq](https://github.com/thedersen/UnityAutoMoq) gave a great example of extension hooking into Unity's dependencies instantiation/resolution pipeline.
 
 # License
 
