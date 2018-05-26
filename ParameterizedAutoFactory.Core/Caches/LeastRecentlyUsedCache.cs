@@ -156,6 +156,8 @@ namespace Unity.ParameterizedAutoFactory.Core.Caches
             _entries = new Dictionary<TKey, DoubleLinkedList.Node>();
             _entriesSortedByUsage = new DoubleLinkedList();
         }
+
+        public int Count => _entries.Count;
  
         public void AddOrReplace(TKey key, TValue value)
         {
