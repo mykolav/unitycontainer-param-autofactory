@@ -41,7 +41,7 @@ namespace ParameterizedAutoFactory.Unity
         {
             var type = context.OriginalBuildKey.Type;
 
-            if (_container.Registrations.Any(r => r.RegisteredType == type))
+            if (_container.IsRegistered(type))
                 return;
 
             if (!_autoFactoryProvider.TryGetOrCreate(type, out var autoFactory))
