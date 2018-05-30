@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;UNITY4_0_1</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;UNITY4_0_1</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -37,9 +37,13 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\ParameterizedAutoFactory.Unity\ParameterizedAutoFactoryBuilderStrategy.cs">
+      <Link>ParameterizedAutoFactoryBuilderStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\ParameterizedAutoFactory.Unity\ParameterizedAutoFactoryExtension.cs">
+      <Link>ParameterizedAutoFactoryExtension.cs</Link>
+    </Compile>
     <Compile Include="ParameterByTypeOverride.cs" />
-    <Compile Include="ParameterizedAutoFactoryBuilderStrategy.cs" />
-    <Compile Include="ParameterizedAutoFactoryExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
