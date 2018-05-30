@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>Mykola Musiienko</Authors>
     <Product>ParameterizedAutoFactory.Unity5</Product>
     <Description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
@@ -14,7 +14,8 @@ This package is compatible with Unity v5.x</Description>
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/14280254</PackageIconUrl>
     <RepositoryUrl>https://github.com/mykolav/unitycontainer-param-autofactory</RepositoryUrl>
     <PackageTags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</PackageTags>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>  
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PackageReleaseNotes>Use built-in, optimized UnityContainerExtensions.IsRegistered instead of Enumerable.Any to check whether a type has been registered.</PackageReleaseNotes>  
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
