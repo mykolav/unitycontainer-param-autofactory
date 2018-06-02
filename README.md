@@ -86,7 +86,7 @@ Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 /* 59 */     // Create the window.
 /* 60 */     var usersGridWindow = createUsersGridWindow(windowTitle, cachedUserListDataSource);
 /* 61 */ 
-/* 62 */     // Let's make sure the parameters were overriden as expected.
+/* 62 */     // Let's make sure the parameters were overridden as expected.
 /* 63 */     Assert.Equal(usersGridWindow.WindowTitle, windowTitle); // We overrode this one.
 /* 64 */     Assert.Same(usersGridWindow.UserListDataSource, cachedUserListDataSource); // And this one too.
 /* 65 */ 
