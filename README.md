@@ -54,45 +54,42 @@ Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 /* 27 */ }
 /* 28 */ 
 /* 29 */ [Fact]
-/* 30 */ public void Factory_parameters_override_matching_constructor_parameters()
+/* 30 */ public void Factory_parameters_overrides_matching_constructor_parameters()
 /* 31 */ {
 /* 32 */     // Setup the container
 /* 33 */     var container = new UnityContainer()
 /* 34 */         .AddNewExtension<UnityParameterizedAutoFactoryExtension>();
 /* 35 */ 
-/* 36 */     // Setup expected values
-/* 37 */     var expectedGadget = new Gadget();
-/* 38 */ 
-/* 39 */     // Here the extension kicks in and generates 
-/* 40 */     // a parameterized factory of type Func<string, IUserListDataSource, UsersGridWindow>.
-/* 41 */     // Of course, in a real app Func<string, IUserListDataSource, UsersGridWindow> would 
-/* 42 */     // likely have been a constructor parameter.
-/* 43 */     var createUsersGridWindow = container
-/* 44 */         .Resolve<Func<string, IUserListDataSource, UsersGridWindow>>();
+/* 36 */     // Here the extension kicks in and generates 
+/* 37 */     // a parameterized factory of type Func<string, IUserListDataSource, UsersGridWindow>.
+/* 38 */     // Of course, in a real app Func<string, IUserListDataSource, UsersGridWindow> would 
+/* 39 */     // likely have been a constructor parameter.
+/* 40 */     var createUsersGridWindow = container
+/* 41 */         .Resolve<Func<string, IUserListDataSource, UsersGridWindow>>();
+/* 42 */ 
+/* 43 */     // Now, let's try to show a scenario which illustrates why
+/* 44 */     // a parameterized auto-factory can be useful.
 /* 45 */ 
-/* 46 */     // Now, let's try to show a scenario which illustrates why
-/* 47 */     // a parameterized auto-factory can be useful.
-/* 48 */ 
-/* 49 */     // Create and warm up a cached data source.
-/* 50 */     // We can reuse the warmed-up cache for any number of UsersGridWindow instances
-/* 51 */     // or other windows which depend on IUserListDataSource.
-/* 52 */     var cachedUserListDataSource = new CachedUserListDataSource();
-/* 53 */     cachedUserListDataSource.WarmUp();
-/* 54 */ 
-/* 55 */     // Pick window title for this particular window instance.
-/* 56 */     // We can pick another title for another window instance.
-/* 57 */     const string windowTitle = "Registered users";
+/* 46 */     // Create and warm up a cached data source.
+/* 47 */     // We can re-use the warmed up cache for any number of UsersGridWindow instances
+/* 48 */     // or other windows which depend on IUserListDataSource.
+/* 49 */     var cachedUserListDataSource = new CachedUserListDataSource();
+/* 50 */     cachedUserListDataSource.WarmUp();
+/* 51 */ 
+/* 52 */     // Pick window title for this particular window instance.
+/* 53 */     // We can pick another title for another window instance.
+/* 54 */     const string windowTitle = "Registered users";
+/* 55 */ 
+/* 56 */     // Create the window.
+/* 57 */     var usersGridWindow = createUsersGridWindow(windowTitle, cachedUserListDataSource);
 /* 58 */ 
-/* 59 */     // Create the window.
-/* 60 */     var usersGridWindow = createUsersGridWindow(windowTitle, cachedUserListDataSource);
-/* 61 */ 
-/* 62 */     // Let's make sure the parameters were overridden as expected.
-/* 63 */     Assert.Equal(usersGridWindow.WindowTitle, windowTitle); // We overrode this one.
-/* 64 */     Assert.Same(usersGridWindow.UserListDataSource, cachedUserListDataSource); // And this one too.
-/* 65 */ 
-/* 66 */     Assert.NotNull(usersGridWindow.DialogBoxService); // We didn't override DialogBoxService,
-/* 67 */                                                       // and so it was resolved from the container.
-/* 68 */ }
+/* 59 */     // Let's make sure the parameters were overriden as expected.
+/* 60 */     Assert.Equal(usersGridWindow.WindowTitle, windowTitle); // We overrode this one.
+/* 61 */     Assert.Same(usersGridWindow.UserListDataSource, cachedUserListDataSource); // And this one too.
+/* 62 */ 
+/* 63 */     Assert.NotNull(usersGridWindow.DialogBoxService); // We didn't override DialogBoxService,
+/* 64 */                                                       // and so it was resolved from the container.
+/* 65 */ }
 ```
 
 # Download and install

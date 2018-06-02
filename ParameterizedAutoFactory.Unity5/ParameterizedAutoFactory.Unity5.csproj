@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
     <Authors>Mykola Musiienko</Authors>
     <Product>ParameterizedAutoFactory.Unity5</Product>
     <Description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
@@ -15,7 +15,8 @@ This package is compatible with Unity v5.x</Description>
     <RepositoryUrl>https://github.com/mykolav/unitycontainer-param-autofactory</RepositoryUrl>
     <PackageTags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</PackageTags>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <PackageReleaseNotes>Improved how fast we check whether to generate an auto-factory from a type.</PackageReleaseNotes>  
+    <PackageReleaseNotes>If we are not going to handle a type, get out of the way asap.</PackageReleaseNotes>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>  
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

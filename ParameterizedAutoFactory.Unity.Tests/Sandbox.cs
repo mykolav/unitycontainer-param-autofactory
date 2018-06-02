@@ -44,15 +44,12 @@ namespace ParameterizedAutoFactory.Tests
             public void WarmUp() { /* ... */ }
         }
 
-        [Fact]
-        public void Factory_parameters_overrides_matching_constructor_parameters()
+        //[Fact]
+        public void Factory_parameters_override_matching_constructor_parameters()
         {
             // Setup the container
             var container = new UnityContainer()
                 .AddNewExtension<UnityParameterizedAutoFactoryExtension>();
-
-            // Setup expected values
-            var expectedGadget = new Gadget();
 
             // Here the extension kicks in and generates 
             // a parameterized factory of type Func<string, IUserListDataSource, UsersGridWindow>.
