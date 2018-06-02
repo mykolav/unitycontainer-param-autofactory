@@ -70,10 +70,11 @@ Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 /* 43 */     var createUsersGridWindow = container
 /* 44 */         .Resolve<Func<string, IUserListDataSource, UsersGridWindow>>();
 /* 45 */ 
-/* 46 generates a factory `Func` forrario which iates why
-s/*  the form 7 */     // a parameterized auto-factory can be useful.
+/* 46 */     // Now, let's try to show a scenario which illustrates why
+/* 47 */     // a parameterized auto-factory can be useful.
 /* 48 */ 
 /* 49 */     // Create and warm up a cached data source.
+/* 50 */     // We can re-use the warmed up cache for any number of UsersGridWindow instances
 /* 51 */     // or other windows which depend on IUserListDataSource.
 /* 52 */     var cachedUserListDataSource = new CachedUserListDataSource();
 /* 53 */     cachedUserListDataSource.WarmUp();
