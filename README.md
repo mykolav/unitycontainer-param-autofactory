@@ -17,7 +17,7 @@ public class TargetType
 ```
 
 This extension takes it one step further. It automatically uses parameter overrides when 
-- it sees a dependency of `Func<IDependencyOfDependency, IDependency>`
+- it sees a dependency of the form `Func<IDependencyOfDependency, IDependency>`
 - and the concrete class implementing `IDependency` needs a parameter of type `IDependencyOfDependency`.  
 
 This only kicks in if `Func<IDependencyOfDependency, IDependency>` is not explicitely registered.
