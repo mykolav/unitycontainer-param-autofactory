@@ -54,7 +54,7 @@ Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 /* 27 */ }
 /* 28 */ 
 /* 29 */ [Fact]
-/* 30 */ public void Factory_parameters_overrides_matching_constructor_parameters()
+/* 30 */ public void Factory_parameters_override_matching_constructor_parameters()
 /* 31 */ {
 /* 32 */     // Setup the container
 /* 33 */     var container = new UnityContainer()
