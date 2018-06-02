@@ -33,15 +33,24 @@ namespace Unity.ParameterizedAutoFactory.Core
             Func<bool> isRegisteredInContainer,
             out object autoFactory)
         {
-            autoFactory = default(object);
+            autoFactory = null;
 
-            // See if we can find an existing auto-factory before wasting time on locking.
-            if (_existingAutoFactories.TryGetValue(typeOfAutoFactory, out autoFactory))
-                return true;
-
+            // Likely, an overwhelming majority of types
+            // that are being resolved, are not parameterized funcs.
+            // So we check for that first to get out of the way
+            // as fast as possible.
             if (!typeOfAutoFactory.IsParameterizedFunc())
                 return false;
 
+            // See if we can find an existing auto-factory before wasting time on locking.
+            // If we find an existing autofactory, that means we have decided to handle
+            // the inspected type previously, and so we'll handle it now too.
+            if (_existingAutoFactories.TryGetValue(typeOfAutoFactory, out autoFactory))
+                return true;
+
+            // If a type has been explicitely registered in the container,
+            // the user expects that registration to be in effect,
+            // so we must leave this type alone.
             if (isRegisteredInContainer())
                 return false;
 
