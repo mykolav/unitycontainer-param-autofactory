@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ParameterizedAutoFactory.Unity4</id>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <authors>Mykola Musiienko</authors>
     <owners>Mykola Musiienko</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,7 +15,7 @@ This package is compatible with Unity v4.0.1</description>
     <copyright>Copyright © Mykola Musiienko 2018</copyright>
     <tags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</tags>
     <repository url="https://github.com/mykolav/unitycontainer-param-autofactory" />
-    <releaseNotes>Use built-in, optimized UnityContainerExtensions.IsRegistered instead of Enumerable.Any to check whether a type has been registered.</releaseNotes>  
+    <releaseNotes>Improved how fast we check whether to generate an auto-factory from a type.</releaseNotes>  
 	
     <dependencies>
       <group>

@@ -1,4 +1,3 @@
-using System.Linq;
 using Unity.ParameterizedAutoFactory.Core;
 #if UNITY4_0_1
 using Microsoft.Practices.ObjectBuilder2;
@@ -41,10 +40,12 @@ namespace ParameterizedAutoFactory.Unity
         {
             var type = context.OriginalBuildKey.Type;
 
-            if (_container.IsRegistered(type))
-                return;
+            var foundOrCreatedAutoFactory = _autoFactoryProvider.TryGetOrCreate(
+                typeOfAutoFactory: type,
+                isRegisteredInContainer: () => _container.IsRegistered(type),
+                autoFactory: out var autoFactory);
 
-            if (!_autoFactoryProvider.TryGetOrCreate(type, out var autoFactory))
+            if (!foundOrCreatedAutoFactory)
                 return;
 
             context.Existing = autoFactory;

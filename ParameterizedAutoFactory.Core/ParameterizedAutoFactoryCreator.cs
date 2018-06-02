@@ -86,7 +86,7 @@ namespace Unity.ParameterizedAutoFactory.Core
         {
             var autoFactoryParams = CreateAutoFactoryParameters();
 
-            var autoFactoryBody = CreateBodyAutoFactoryBody(
+            var autoFactoryBody = CreateAutoFactoryBody(
                 CreateResolverOverrides(
                     GetParameterByTypeOverrideCtorInfo(), 
                     autoFactoryParams
@@ -101,7 +101,7 @@ namespace Unity.ParameterizedAutoFactory.Core
             return parameterizedAutoFactory;
         }
 
-        private BlockExpression CreateBodyAutoFactoryBody(IEnumerable<Expression> resolverOverrides)
+        private BlockExpression CreateAutoFactoryBody(IEnumerable<Expression> resolverOverrides)
         {
             var evResolverOverrides = Expression.Variable(
                 typeof(TResolverOverride[]),

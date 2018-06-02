@@ -28,16 +28,22 @@ namespace Unity.ParameterizedAutoFactory.Core
             _container = container;
         }
 
-        public bool TryGetOrCreate(Type typeOfAutoFactory, out object autoFactory)
+        public bool TryGetOrCreate(
+            Type typeOfAutoFactory, 
+            Func<bool> isRegisteredInContainer,
+            out object autoFactory)
         {
             autoFactory = default(object);
-
-            if (!typeOfAutoFactory.IsParameterizedFunc())
-                return false;
 
             // See if we can find an existing auto-factory before wasting time on locking.
             if (_existingAutoFactories.TryGetValue(typeOfAutoFactory, out autoFactory))
                 return true;
+
+            if (!typeOfAutoFactory.IsParameterizedFunc())
+                return false;
+
+            if (isRegisteredInContainer())
+                return false;
 
             lock (_existingAutoFactoriesLock)
             {
