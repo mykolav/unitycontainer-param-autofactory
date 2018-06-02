@@ -74,7 +74,7 @@ Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 /* 47 */     // a parameterized auto-factory can be useful.
 /* 48 */ 
 /* 49 */     // Create and warm up a cached data source.
-/* 50 */     // We can re-use the warmed up cache for any number of UsersGridWindow instances
+/* 50 */     // We can reuse the warmed-up cache for any number of UsersGridWindow instances
 /* 51 */     // or other windows which depend on IUserListDataSource.
 /* 52 */     var cachedUserListDataSource = new CachedUserListDataSource();
 /* 53 */     cachedUserListDataSource.WarmUp();
