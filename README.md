@@ -25,71 +25,71 @@ This only kicks in if `Func<IDependencyOfDependency, IDependency>` is not explic
 Here is a quick example presented as an [xUnit](https://xunit.github.io/) test.
 
 ```csharp
-/*  1 */ public interface IDialogBoxService { /* ... */ }
-/*  2 */ public interface IUserListDataSource { /* ... */ }
-/*  3 */ 
-/*  4 */ public class UsersGridWindow
-/*  5 */ {
-/*  6 */     public UsersGridWindow(string windowTitle, 
-/*  7 */                            IUserListDataSource userListDataSource, 
-/*  8 */                            IDialogBoxService dialogBoxService)
-/*  9 */     {
-/* 10 */         WindowTitle = windowTitle;
-/* 11 */         UserListDataSource = userListDataSource;
-/* 12 */         DialogBoxService = dialogBoxService;
-/* 13 */ 
-/* 14 */         /* ... */
-/* 15 */     }
-/* 16 */ 
-/* 17 */     public string WindowTitle { get; }
-/* 18 */     public IUserListDataSource UserListDataSource { get; }
-/* 19 */     public IDialogBoxService DialogBoxService { get; }
-/* 20 */ 
-/* 21 */     /* ... */
-/* 22 */ }
-/* 23 */ 
-/* 24 */ public class CachedUserListDataSource : IUserListDataSource
-/* 25 */ {
-/* 26 */     public void WarmUp() { /* ... */ }
-/* 27 */ }
-/* 28 */ 
-/* 29 */ [Fact]
-/* 30 */ public void Factory_parameters_overrides_matching_constructor_parameters()
-/* 31 */ {
-/* 32 */     // Setup the container
-/* 33 */     var container = new UnityContainer()
-/* 34 */         .AddNewExtension<UnityParameterizedAutoFactoryExtension>();
-/* 35 */ 
-/* 36 */     // Here the extension kicks in and generates 
-/* 37 */     // a parameterized factory of type Func<string, IUserListDataSource, UsersGridWindow>.
-/* 38 */     // Of course, in a real app Func<string, IUserListDataSource, UsersGridWindow> would 
-/* 39 */     // likely have been a constructor parameter.
-/* 40 */     var createUsersGridWindow = container
-/* 41 */         .Resolve<Func<string, IUserListDataSource, UsersGridWindow>>();
-/* 42 */ 
-/* 43 */     // Now, let's try to show a scenario which illustrates why
-/* 44 */     // a parameterized auto-factory can be useful.
-/* 45 */ 
-/* 46 */     // Create and warm up a cached data source.
-/* 47 */     // We can re-use the warmed up cache for any number of UsersGridWindow instances
-/* 48 */     // or other windows which depend on IUserListDataSource.
-/* 49 */     var cachedUserListDataSource = new CachedUserListDataSource();
-/* 50 */     cachedUserListDataSource.WarmUp();
-/* 51 */ 
-/* 52 */     // Pick window title for this particular window instance.
-/* 53 */     // We can pick another title for another window instance.
-/* 54 */     const string windowTitle = "Registered users";
-/* 55 */ 
-/* 56 */     // Create the window.
-/* 57 */     var usersGridWindow = createUsersGridWindow(windowTitle, cachedUserListDataSource);
-/* 58 */ 
-/* 59 */     // Let's make sure the parameters were overriden as expected.
-/* 60 */     Assert.Equal(usersGridWindow.WindowTitle, windowTitle); // We overrode this one.
-/* 61 */     Assert.Same(usersGridWindow.UserListDataSource, cachedUserListDataSource); // And this one too.
-/* 62 */ 
-/* 63 */     Assert.NotNull(usersGridWindow.DialogBoxService); // We didn't override DialogBoxService,
-/* 64 */                                                       // and so it was resolved from the container.
-/* 65 */ }
+public interface IDialogBoxService { /* ... */ }
+public interface IUserListDataSource { /* ... */ }
+
+public class UsersGridWindow
+{
+    public UsersGridWindow(string windowTitle, 
+                           IUserListDataSource userListDataSource, 
+                           IDialogBoxService dialogBoxService)
+    {
+        WindowTitle = windowTitle;
+        UserListDataSource = userListDataSource;
+        DialogBoxService = dialogBoxService;
+
+        /* ... */
+    }
+
+    public string WindowTitle { get; }
+    public IUserListDataSource UserListDataSource { get; }
+    public IDialogBoxService DialogBoxService { get; }
+
+    /* ... */
+}
+
+public class CachedUserListDataSource : IUserListDataSource
+{
+    public void WarmUp() { /* ... */ }
+}
+
+[Fact]
+public void Factory_parameters_overrides_matching_constructor_parameters()
+{
+    // Setup the container
+    var container = new UnityContainer()
+        .AddNewExtension<UnityParameterizedAutoFactoryExtension>();
+
+    // Here the extension kicks in and generates 
+    // a parameterized factory of type Func<string, IUserListDataSource, UsersGridWindow>.
+    // Of course, in a real app Func<string, IUserListDataSource, UsersGridWindow> would 
+    // likely have been a constructor parameter.
+    var createUsersGridWindow = container
+        .Resolve<Func<string, IUserListDataSource, UsersGridWindow>>();
+
+    // Now, let's try to show a scenario which illustrates why
+    // a parameterized auto-factory can be useful.
+
+    // Create and warm up a cached data source.
+    // We can re-use the warmed up cache for any number of UsersGridWindow instances
+    // or other windows which depend on IUserListDataSource.
+    var cachedUserListDataSource = new CachedUserListDataSource();
+    cachedUserListDataSource.WarmUp();
+
+    // Pick window title for this particular window instance.
+    // We can pick another title for another window instance.
+    const string windowTitle = "Registered users";
+
+    // Create the window.
+    var usersGridWindow = createUsersGridWindow(windowTitle, cachedUserListDataSource);
+
+    // Let's make sure the parameters were overridden as expected.
+    Assert.Equal(usersGridWindow.WindowTitle, windowTitle); // We overrode this one.
+    Assert.Same(usersGridWindow.UserListDataSource, cachedUserListDataSource); // And this one too.
+
+    Assert.NotNull(usersGridWindow.DialogBoxService); // We didn't override DialogBoxService,
+                                                      // and so it was resolved from the container.
+}
 ```
 
 # Download and install
