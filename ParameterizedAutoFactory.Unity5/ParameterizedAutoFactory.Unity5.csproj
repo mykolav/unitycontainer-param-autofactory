@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
-    <Version>0.0.4</Version>
+    <Version>0.0.5</Version>
     <Authors>Mykola Musiienko</Authors>
     <Product>ParameterizedAutoFactory.Unity5</Product>
     <Description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
