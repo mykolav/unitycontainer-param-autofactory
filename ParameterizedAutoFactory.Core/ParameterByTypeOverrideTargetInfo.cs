@@ -8,7 +8,7 @@ namespace Unity.ParameterizedAutoFactory.Core
     /// This class helps override a parameter of the target type's constructor based on that parameter's type.
     /// It contains code that is possible to share across Unity v4.x and Unity v5.x.
     /// </summary>
-    public class ParameterByTypeOverrideTargetInfo
+    internal class ParameterByTypeOverrideTargetInfo
     {
         private readonly Type _targetType;
         private readonly Type _parameterType;

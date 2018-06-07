@@ -14,7 +14,7 @@ namespace ParameterizedAutoFactory.Unity4
     ///     2) if the ctor selected to instantiate the current type
     ///        has only one dependency (i. e. parameter) of the given type.
     /// </summary>
-    public class ParameterByTypeOverride : ResolverOverride
+    internal class ParameterByTypeOverride : ResolverOverride
     {
         private readonly InjectionParameterValue _parameterValue;
 

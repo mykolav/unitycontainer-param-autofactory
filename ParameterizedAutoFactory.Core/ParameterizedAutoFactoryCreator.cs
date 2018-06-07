@@ -10,7 +10,7 @@ namespace Unity.ParameterizedAutoFactory.Core
     /// This class builds a parameterized autofactory specified by
     /// a type of kind Func{TArg0, ..., TResult}
     /// </summary>
-    public class ParameterizedAutoFactoryCreator<
+    internal class ParameterizedAutoFactoryCreator<
         TUnityContainer,
         TResolverOverride, 
         TParameterByTypeOverride>

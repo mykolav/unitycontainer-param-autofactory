@@ -10,7 +10,7 @@
     <PackageLicenseUrl>https://github.com/mykolav/unitycontainer-param-autofactory/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/mykolav/unitycontainer-param-autofactory</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mykolav/unitycontainer-param-autofactory</RepositoryUrl>
-    <PackageTags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</PackageTags>
+    <PackageTags>Types which are not part of the public API made internal.</PackageTags>
     <Description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
 Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; while resolving types with such a dependency.</Description>
     <Version>0.0.1</Version>
@@ -18,6 +18,8 @@ Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; whil
 	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <AssemblyName>ParameterizedAutoFactory.Unity.Core</AssemblyName>
     <RootNamespace>Unity.ParameterizedAutoFactory.Core</RootNamespace>
+    <AssemblyVersion>0.0.5.0</AssemblyVersion>
+    <FileVersion>0.0.5.0</FileVersion>
   </PropertyGroup>
 
 </Project>

@@ -7,7 +7,7 @@ namespace Unity.ParameterizedAutoFactory.Core.Caches
     /// Keeping static constants in generic classes is discouraged.
     /// So we have a non-generic class with the same name.
     /// </summary>
-    public static class LeastRecentlyUsedCache
+    internal static class LeastRecentlyUsedCache
     {
         public static class Defaults
         {
@@ -24,7 +24,7 @@ namespace Unity.ParameterizedAutoFactory.Core.Caches
     /// This is a slighly modified version of
     /// the original code from http://www.sinbadsoft.com/blog/a-lru-cache-implementation/
     /// </summary>
-    public class LeastRecentlyUsedCache<TKey, TValue> : ICache<TKey, TValue>
+    internal class LeastRecentlyUsedCache<TKey, TValue> : ICache<TKey, TValue>
         where TValue : class
     {
         private class DoubleLinkedList

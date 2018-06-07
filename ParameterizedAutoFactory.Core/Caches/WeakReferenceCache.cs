@@ -12,7 +12,7 @@ namespace Unity.ParameterizedAutoFactory.Core.Caches
     ///
     /// This class exists for experimental purposes.
     /// </summary>
-    public class WeakReferenceCache<TKey, TValue> : ICache<TKey, TValue> 
+    internal class WeakReferenceCache<TKey, TValue> : ICache<TKey, TValue> 
         where TValue : class
     {
         private readonly Dictionary<TKey, WeakReference<TValue>> _entries = 

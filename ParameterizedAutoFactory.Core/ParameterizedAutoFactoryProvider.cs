@@ -8,7 +8,7 @@ namespace Unity.ParameterizedAutoFactory.Core
     ///   - builds a parameterized autofactory if it is not in the cache.
     ///   - returns the appropriate instance from the cache otherwise.
     /// </summary>
-    public class ParameterizedAutoFactoryProvider<
+    internal class ParameterizedAutoFactoryProvider<
         TUnityContainer,
         TResolverOverride,
         TParameterByTypeOverride>

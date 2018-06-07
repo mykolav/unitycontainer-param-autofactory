@@ -15,8 +15,10 @@ This package is compatible with Unity v5.x</Description>
     <RepositoryUrl>https://github.com/mykolav/unitycontainer-param-autofactory</RepositoryUrl>
     <PackageTags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</PackageTags>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <PackageReleaseNotes>If we are not going to handle a type, get out of the way asap.</PackageReleaseNotes>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>  
+    <PackageReleaseNotes>Types which are not part of the public API made internal.</PackageReleaseNotes>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <AssemblyVersion>0.0.5.0</AssemblyVersion>
+    <FileVersion>0.0.5.0</FileVersion>  
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
