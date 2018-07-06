@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>ParameterizedAutoFactory.Unity4</id>
+    <id>ParameterizedAutoFactory.Unity5</id>
     <version>0.0.6</version>
     <authors>Mykola Musiienko</authors>
     <owners>Mykola Musiienko</owners>
@@ -11,22 +11,24 @@
     <iconUrl>https://avatars1.githubusercontent.com/u/14280254</iconUrl>
     <description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
 Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; while resolving types with such a dependency.
-This package is compatible with Unity v4.0.1</description>
+ This package is compatible with Unity v5.x</description>
     <copyright>Copyright © Mykola Musiienko 2018</copyright>
     <tags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</tags>
     <repository url="https://github.com/mykolav/unitycontainer-param-autofactory" />
-    <releaseNotes>Added missing ParameterizedAutoFactory.Unity.Core.dll to the ParameterizedAutoFactory.Unity5 package. Making sure this package's version is in sync.</releaseNotes>  
+    <releaseNotes>Added missing ParameterizedAutoFactory.Unity.Core.dll to the package</releaseNotes>  
 	
     <dependencies>
       <group>
-        <dependency id="Unity" version="4.0.1" />
+        <dependency id="Unity.Abstractions" version="3.3.0" />
+        <dependency id="Unity.Container" version="5.8.6" />
       </group>
     </dependencies>  
   </metadata>
   <files>
-    <file src="bin\Release\ParameterizedAutoFactory.Unity4.dll" target="lib\portable-net45+win8+wp8+wpa81\ParameterizedAutoFactory.Unity4.dll" />
-    <file src="bin\Release\ParameterizedAutoFactory.Unity4.pdb" target="lib\portable-net45+win8+wp8+wpa81\ParameterizedAutoFactory.Unity4.pdb" />
-    <file src="bin\Release\ParameterizedAutoFactory.Unity.Core.dll" target="lib\portable-net45+win8+wp8+wpa81\ParameterizedAutoFactory.Unity.Core.dll" />
-    <file src="bin\Release\ParameterizedAutoFactory.Unity.Core.pdb" target="lib\portable-net45+win8+wp8+wpa81\ParameterizedAutoFactory.Unity.Core.pdb" />
+    <file src="bin\Release\netstandard1.5\ParameterizedAutoFactory.Unity5.dll" target="lib\netstandard1.5\ParameterizedAutoFactory.Unity5.dll" />
+    <file src="bin\Release\netstandard1.5\ParameterizedAutoFactory.Unity5.pdb" target="lib\netstandard1.5\ParameterizedAutoFactory.Unity5.pdb" />
+    <file src="bin\Release\netstandard1.5\ParameterizedAutoFactory.Unity.Core.dll" target="lib\netstandard1.5\ParameterizedAutoFactory.Unity.Core.dll" />
+    <file src="bin\Release\netstandard1.5\ParameterizedAutoFactory.Unity.Core.pdb" target="lib\netstandard1.5\ParameterizedAutoFactory.Unity.Core.pdb" />
   </files>
+  
 </package>
