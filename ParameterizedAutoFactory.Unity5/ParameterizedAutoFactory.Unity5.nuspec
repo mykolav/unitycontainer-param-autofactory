@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ParameterizedAutoFactory.Unity5</id>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
     <authors>Mykola Musiienko</authors>
     <owners>Mykola Musiienko</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,7 +15,7 @@ Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; whil
     <copyright>Copyright © Mykola Musiienko 2018</copyright>
     <tags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</tags>
     <repository url="https://github.com/mykolav/unitycontainer-param-autofactory" />
-    <releaseNotes>Added missing ParameterizedAutoFactory.Unity.Core.dll to the package</releaseNotes>  
+    <releaseNotes>Covered scenarios where the autofactory's result type is an interface.</releaseNotes>  
 	
     <dependencies>
       <group>
