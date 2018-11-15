@@ -11,6 +11,7 @@ namespace Unity.ParameterizedAutoFactory.Core
     internal class ParameterByTypeOverrideTargetInfo
     {
         private readonly Type _targetType;
+        private readonly TypeInfo _targetTypeInfo;
         private readonly Type _parameterType;
         private readonly Func<ConstructorInfo, string> _createSignatureString;
 
@@ -20,11 +21,26 @@ namespace Unity.ParameterizedAutoFactory.Core
             Func<ConstructorInfo, string> createSignatureString)
         {
             _targetType = targetType;
+            _targetTypeInfo = targetType.GetTypeInfo();
             _parameterType = parameterType;
             _createSignatureString = createSignatureString;
         }
 
-        public bool TargetTypeMatches(Type type) => _targetType == type;
+        public bool TargetTypeMatches(Type type)
+        {
+            if (_targetType == type)
+                return true;
+
+            // The branch of code below covers scenario where
+            // the autofactory's result type is an interface.
+            // E. g., `Func<TArg0, ..., IService>`
+            // and Unity resolved `IService` to `ServiceImpl1`
+            var matches =
+                _targetTypeInfo.IsInterface
+                && _targetTypeInfo.IsAssignableFrom(type.GetTypeInfo());
+
+            return matches;
+        }
         public bool ParameterTypeMatches(Type type) => _parameterType == type;
 
         public void EnsureSingleParameterOfOverriddenType(ConstructorInfo constructor)
