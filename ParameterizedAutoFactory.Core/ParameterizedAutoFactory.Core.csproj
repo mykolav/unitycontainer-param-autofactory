@@ -22,4 +22,9 @@ Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; whil
     <FileVersion>0.0.5.0</FileVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
 </Project>

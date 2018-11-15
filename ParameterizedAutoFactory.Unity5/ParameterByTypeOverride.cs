@@ -51,7 +51,7 @@ namespace ParameterizedAutoFactory.Unity5
             var selectedConstructor = GetSelectedConstructorOrNull(context);
             // In case we did not find a constructor suitable
             // to be used by UnityContainer to create an instance of _targetType,
-            // we do not try to report it ourself.
+            // we do not try to report it ourselves.
             // Instead we just ignore it here and let Unity's code deal with the situation.
             // 
             // In case we found the constructor Unity is going to use to create
