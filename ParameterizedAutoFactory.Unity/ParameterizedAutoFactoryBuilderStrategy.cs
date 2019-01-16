@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.ParameterizedAutoFactory.Core;
 #if UNITY4_0_1
 using Microsoft.Practices.ObjectBuilder2;
@@ -38,6 +39,12 @@ namespace ParameterizedAutoFactory.Unity
 
         public override void PreBuildUp(IBuilderContext context)
         {
+            var activeStrategy = GetOverridingStrategy(context);
+            activeStrategy.DoPreBuildUp(context);
+        }
+
+        private void DoPreBuildUp(IBuilderContext context)
+        {
             var type = context.OriginalBuildKey.Type;
 
             var foundOrCreatedAutoFactory = _autoFactoryProvider.TryGetOrCreate(
@@ -51,5 +58,8 @@ namespace ParameterizedAutoFactory.Unity
             context.Existing = autoFactory;
             context.BuildComplete = true;
         }
+
+        private ParameterizedAutoFactoryBuilderStrategy GetOverridingStrategy(IBuilderContext context) 
+            => context.Strategies.OfType<ParameterizedAutoFactoryBuilderStrategy>().Last();
     }
 }

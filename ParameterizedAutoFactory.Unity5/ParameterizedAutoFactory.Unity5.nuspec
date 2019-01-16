@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ParameterizedAutoFactory.Unity5</id>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
     <authors>Mykola Musiienko</authors>
     <owners>Mykola Musiienko</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,10 +12,10 @@
     <description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
 Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; while resolving types with such a dependency.
  This package is compatible with Unity v5.x</description>
-    <copyright>Copyright © Mykola Musiienko 2018</copyright>
+    <copyright>Copyright © Mykola Musiienko 2019</copyright>
     <tags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</tags>
     <repository url="https://github.com/mykolav/unitycontainer-param-autofactory" />
-    <releaseNotes>Covered scenarios where the autofactory's result type is an interface.</releaseNotes>  
+    <releaseNotes>Made it possible to override the extension in child containers</releaseNotes>  
 	
     <dependencies>
       <group>

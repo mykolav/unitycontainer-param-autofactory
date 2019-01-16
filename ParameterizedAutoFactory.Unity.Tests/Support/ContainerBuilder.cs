@@ -23,9 +23,15 @@ namespace ParameterizedAutoFactory.Tests.Support
             var container = new UnityContainer();
 
             if (_addParameterizedAutoFactoryExtension)
-                container.AddNewExtension<UnityParameterizedAutoFactoryExtension>();
+                container.AddParameterizedAutoFactoryExtension();
 
             return container;
         }
+    }
+
+    internal static class UnityContainerExtensions
+    {
+        internal static IUnityContainer AddParameterizedAutoFactoryExtension(this IUnityContainer container)
+            => container.AddNewExtension<UnityParameterizedAutoFactoryExtension>();
     }
 }

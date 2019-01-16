@@ -12,7 +12,7 @@ namespace ParameterizedAutoFactory.Unity
     /// <summary>
     /// This is a unity extension class.
     /// If added to the container it hooks up
-    /// the code that builds parameterized autofactories
+    /// the code that builds parameterized auto-factories
     /// into Unity's dependency resolution pipeline.
     /// One way of adding this extension to the container is:
     /// <code>
@@ -23,17 +23,10 @@ namespace ParameterizedAutoFactory.Unity
     /// </summary>
     public class UnityParameterizedAutoFactoryExtension : UnityContainerExtension
     {
-        private readonly IUnityContainer _container;
-
-        public UnityParameterizedAutoFactoryExtension(IUnityContainer container)
-        {
-            _container = container;
-        }
-
         protected override void Initialize()
         {
             Context.Strategies.Add(
-                new ParameterizedAutoFactoryBuilderStrategy(_container), 
+                new ParameterizedAutoFactoryBuilderStrategy(Context.Container), 
                 UnityBuildStage.PreCreation);
         }
     }
