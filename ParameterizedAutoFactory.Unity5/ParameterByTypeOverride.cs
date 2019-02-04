@@ -1,11 +1,11 @@
 using System;
-using Unity.Builder;
-using Unity.Builder.Selection;
 using Unity.Injection;
-using Unity.ObjectBuilder.BuildPlan.DynamicMethod.Creation;
 using Unity.ParameterizedAutoFactory.Core;
 using Unity.Policy;
 using Unity.Resolution;
+using Unity.Builder;
+using Unity.Builder.Selection;
+using Unity.ObjectBuilder.BuildPlan.DynamicMethod.Creation;
 
 namespace ParameterizedAutoFactory.Unity5
 {

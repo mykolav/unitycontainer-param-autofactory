@@ -40,8 +40,11 @@ namespace ParameterizedAutoFactory.Tests.Automatic_factory
             // Arrange
             var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
             container.RegisterType<TypeWithCtorWithTwoDependencyParams>(new HierarchicalLifetimeManager());
-            
-            var childContainer = container.CreateChildContainer().AddParameterizedAutoFactoryExtension();
+
+            var childContainer = container.CreateChildContainer();
+#if UNITY4_0_1
+            childContainer.AddParameterizedAutoFactoryExtension();
+#endif
 
             var autofactory0 = container.Resolve<Func<
                 TypeWithParameterlessCtor,

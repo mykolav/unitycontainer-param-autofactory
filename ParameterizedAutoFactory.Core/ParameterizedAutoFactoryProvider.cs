@@ -28,22 +28,22 @@ namespace Unity.ParameterizedAutoFactory.Core
         //  - portable-net45+win8+wp8+wpa81 (.NETPortable,Version=v0.0,Profile=Profile259)
         //  - win8 (Windows,Version=v8.0)
         //  - wp8 (WindowsPhone,Version=v8.0)
-        private readonly ICache<Type, object> _existingAutoFactories;
-        private readonly TUnityContainer _container;
+        private readonly ICache<Type, Func<TUnityContainer, Delegate>> _existingAutoFactoryCreators;
 
-        public ParameterizedAutoFactoryProvider(TUnityContainer container)
+        public ParameterizedAutoFactoryProvider()
         {
             _existingAutoFactoriesLock = new object();
-            _existingAutoFactories = new LeastRecentlyUsedCache<Type, object>();
-            _container = container;
+            _existingAutoFactoryCreators = new LeastRecentlyUsedCache<
+                Type, 
+                Func<TUnityContainer, Delegate>>();
         }
 
-        public bool TryGetOrCreate(
+        public bool TryGetOrBuildAutoFactoryCreator(
             Type typeOfAutoFactory, 
             Func<bool> isRegisteredInContainer,
-            out object autoFactory)
+            out Func<TUnityContainer, Delegate> createAutoFactory)
         {
-            autoFactory = null;
+            createAutoFactory = null;
 
             // Likely, an overwhelming majority of types
             // that are being resolved, are not parameterized func-s.
@@ -55,7 +55,7 @@ namespace Unity.ParameterizedAutoFactory.Core
             // See if we can find an existing auto-factory before wasting time on locking.
             // If we find an existing auto-factory, that means we have decided to handle
             // the inspected type previously, and so we'll handle it now too.
-            if (_existingAutoFactories.TryGetValue(typeOfAutoFactory, out autoFactory))
+            if (_existingAutoFactoryCreators.TryGetValue(typeOfAutoFactory, out createAutoFactory))
                 return true;
 
             // If a type has been explicitly registered in the container,
@@ -68,18 +68,47 @@ namespace Unity.ParameterizedAutoFactory.Core
             {
                 // See if another thread created the auto-factory we are looking for,
                 // while we were waiting to lock.
-                if (_existingAutoFactories.TryGetValue(typeOfAutoFactory, out autoFactory))
+                if (_existingAutoFactoryCreators.TryGetValue(typeOfAutoFactory, out createAutoFactory))
                     return true;
 
-                autoFactory = new ParameterizedAutoFactoryCreator<
+                createAutoFactory = ParameterizedAutoFactoryFactoryFactory.BuildAutoFactoryCreator<
                     TUnityContainer, 
                     TResolverOverride,
-                    TParameterByTypeOverride>(_container, typeOfAutoFactory).Invoke();
+                    TParameterByTypeOverride>(typeOfAutoFactory);
 
-                _existingAutoFactories.AddOrReplace(typeOfAutoFactory, autoFactory);
+                _existingAutoFactoryCreators.AddOrReplace(typeOfAutoFactory, createAutoFactory);
 
                 return true;
             }
+        }
+
+        public bool TryBuildAutoFactory(
+            Type typeOfAutoFactory, 
+            TUnityContainer container,
+            Func<bool> isRegisteredInContainer,
+            out Delegate autoFactory)
+        {
+            autoFactory = null;
+
+            // Likely, an overwhelming majority of types
+            // that are being resolved, are not parameterized func-s.
+            // So we check for that first to get out of the way
+            // as fast as possible.
+            if (!typeOfAutoFactory.IsParameterizedFunc())
+                return false;
+
+            // If a type has been explicitly registered in the container,
+            // the user expects that registration to be in effect,
+            // so we must leave this type alone.
+            if (isRegisteredInContainer())
+                return false;
+
+            autoFactory = ParameterizedAutoFactoryFactoryFactory.BuildAutoFactory<
+                TUnityContainer, 
+                TResolverOverride,
+                TParameterByTypeOverride>(typeOfAutoFactory, container);
+
+            return true;
         }
     }
 }
