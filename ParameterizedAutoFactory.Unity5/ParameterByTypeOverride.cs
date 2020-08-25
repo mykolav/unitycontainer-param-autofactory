@@ -1,11 +1,11 @@
 using System;
-using Unity.Injection;
-using Unity.ParameterizedAutoFactory.Core;
-using Unity.Policy;
-using Unity.Resolution;
+using System.Linq;
+using System.Reflection;
 using Unity.Builder;
-using Unity.Builder.Selection;
-using Unity.ObjectBuilder.BuildPlan.DynamicMethod.Creation;
+using Unity.Injection;
+using Unity.Policy;
+using Unity.Processors;
+using Unity.Resolution;
 
 namespace ParameterizedAutoFactory.Unity5
 {
@@ -13,75 +13,112 @@ namespace ParameterizedAutoFactory.Unity5
     /// A <see cref="ResolverOverride"/> class that overrides
     /// a parameter based on its type passed to a constructor
     /// of the target type.
-    /// This checks to see
-    ///     1) if the current type being built is the right one
-    ///     2) if the ctor selected to instantiate the current type
-    ///        has only one dependency (i. e. parameter) of the given type.
+    /// This makes sure when the parameter's value is being resolved the code checks
+    /// whether the ctor selected to instantiate the current type
+    /// has only one parameter of the given type.
     /// </summary>
-    internal class ParameterByTypeOverride : ResolverOverride
+    internal class ParameterByTypeOverride : ParameterOverride
     {
-        private readonly ParameterByTypeOverrideTargetInfo _targetInfo;
-
         public ParameterByTypeOverride(
             Type targetType,
             Type parameterType,
             object parameterValue)
-            : base(null, new InjectionParameter(parameterType, parameterValue))
+            : base(parameterType, new ParameterByTypeOverrideResolve(parameterType, parameterValue))
         {
-            _targetInfo = new ParameterByTypeOverrideTargetInfo(
-                targetType, 
-                parameterType,
-                DynamicMethodConstructorStrategy.CreateSignatureString
-            );
+            OnType(targetType);
+        }
+    }
+
+    /// <summary>
+    /// This code checks whether the ctor selected to instantiate the target type
+    /// has only one parameter of the given type.
+    /// </summary>
+    internal class ParameterByTypeOverrideResolve : IResolve
+    {
+        private readonly Type _parameterType;
+        private readonly object _parameterValue;
+
+        public ParameterByTypeOverrideResolve(Type parameterType, object parameterValue)
+        {
+            _parameterType = parameterType;
+            _parameterValue = parameterValue;
         }
 
-        public override IResolverPolicy GetResolver(IBuilderContext context, Type dependencyType)
+        public object Resolve<TContext>(ref TContext context) 
+            where TContext : IResolveContext
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (!(context is BuilderContext builderContext))
+                return _parameterValue;
 
-            if (!(context.CurrentOperation is BuildOperation operation) ||
-                 !_targetInfo.TargetTypeMatches(operation.TypeBeingConstructed))
+            // Hopefully, we'll manage to find the same constructor
+            // that UnityContainer is going to use to create an instance of the target type.
+            var selector = new ConstructorProcessor(
+                policySet: builderContext.Registration, 
+                isTypeRegistered: t => builderContext.Container.IsRegistered(t, name: null));
+
+            var selection = selector
+                .Select(builderContext.Type, builderContext.Registration)
+                .FirstOrDefault();
+
+            ConstructorInfo constructorInfo = null;
+            switch (selection)
             {
-                return null;
+                case ConstructorInfo ci:
+                    constructorInfo = ci;
+                    break;
+
+                case MethodBase<ConstructorInfo> im:
+                    constructorInfo = im.MemberInfo(builderContext.Type);
+                    break;
             }
 
-            if (!_targetInfo.ParameterTypeMatches(dependencyType))
-                return null;
-
-            var selectedConstructor = GetSelectedConstructorOrNull(context);
             // In case we did not find a constructor suitable
-            // to be used by UnityContainer to create an instance of _targetType,
+            // to be used by UnityContainer to create an instance of the target type,
             // we do not try to report it ourselves.
             // Instead we just ignore it here and let Unity's code deal with the situation.
             // 
             // In case we found the constructor Unity is going to use to create
-            // an instance of _targetType, let's make sure the ctor has only
+            // an instance of the target type, let's make sure the ctor has only
             // one parameter of type _parameterType.
             // If there are multiple parameters of type _parameterType,
             // it's an ambiguous case and we refuse implicitly handling it.
-            if (selectedConstructor != null)
-                _targetInfo.EnsureSingleParameterOfOverriddenType(selectedConstructor.Constructor);
+            if (constructorInfo != null)
+                EnsureSingleParameterOfOverriddenType(constructorInfo);
 
-            var resolver = Value.GetResolverPolicy(dependencyType);
-            return resolver;
-
+            return _parameterValue;
         }
 
-        /// <summary>
-        /// Hopefully, this method manages to find the same constructor
-        /// that UnityContainer is going to use to create an instance of the target type.
-        /// </summary>
-        private static SelectedConstructor GetSelectedConstructorOrNull(IBuilderContext context)
+        private void EnsureSingleParameterOfOverriddenType(ConstructorInfo constructor)
         {
-            var selector = context.Policies.GetPolicy<IConstructorSelectorPolicy>(
-                context.OriginalBuildKey, 
-                out var resolverPolicyDestination);
+            var constructorParameters = constructor.GetParameters();
+            var ctorParametersOfType = constructorParameters
+                .Where(ctorParameter => ctorParameter.ParameterType == _parameterType)
+                .ToList();
 
-            var selectedConstructor = selector?.SelectConstructor(
-                context, 
-                resolverPolicyDestination);
+            if (ctorParametersOfType.Count <= 1)
+                return;
 
-            return selectedConstructor;
+            var constructorSignature = CreateSignatureString(constructor);
+
+            throw new InvalidOperationException(
+                $"The constructor {constructorSignature} " +
+                $"has {ctorParametersOfType.Count} parameters " +
+                $"of type {_parameterType.FullName}." +
+                $"{Environment.NewLine}" +
+                "Do not know which one you meant to override."
+            );
+        }
+
+        private static string CreateSignatureString(ConstructorInfo constructor)
+        {
+            var parameters = constructor.GetParameters();
+            var parameterSignatures = new string[parameters.Length];
+
+            for (int i = 0; i < parameters.Length; i++)
+                parameterSignatures[i] = $"{parameters[i].ParameterType.FullName} {parameters[i].Name}";
+
+            string fullName = constructor.DeclaringType.FullName;
+            return $"{fullName}({string.Join(", ", parameterSignatures)})";
         }
     }
 }

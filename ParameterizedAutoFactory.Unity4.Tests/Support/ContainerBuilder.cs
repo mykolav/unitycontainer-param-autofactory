@@ -4,7 +4,7 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 #elif UNITY5_X
 using Unity;
-using Unity.Interception.ContainerIntegration;
+using Unity.Interception;
 #endif
 
 namespace ParameterizedAutoFactory.Tests.Support

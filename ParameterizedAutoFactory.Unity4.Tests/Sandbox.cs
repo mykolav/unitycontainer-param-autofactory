@@ -1,16 +1,9 @@
 ﻿using System;
 using FluentAssertions;
-using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
-using Xunit;
-using ParameterizedAutoFactory.Unity;
-#if UNITY4_0_1
 using Microsoft.Practices.Unity;
+using ParameterizedAutoFactory.Unity;
 using ParameterizedAutoFactory.Unity4;
-#elif UNITY5_X
-using Unity;
-using Unity.Resolution;
-using ParameterizedAutoFactory.Unity5;
-#endif
+using Xunit;
 
 namespace ParameterizedAutoFactory.Tests
 {
@@ -127,12 +120,12 @@ namespace ParameterizedAutoFactory.Tests
             var overrides = new ResolverOverride[]
             {
                 new DependencyOverride(
-                    typeof(INavigationService), 
+                    typeof(INavigationService),
                     overriddenNavigationService
                 ).OnType<Frame>(),
 
                 new DependencyOverride(
-                    typeof(IPageDialogService), 
+                    typeof(IPageDialogService),
                     overriddenPageDialogService
                 ).OnType<Frame>(),
             };

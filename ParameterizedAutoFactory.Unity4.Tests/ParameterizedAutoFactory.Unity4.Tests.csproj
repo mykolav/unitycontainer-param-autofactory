@@ -79,12 +79,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Automatic_factory\Creates_instance\Of_type_with\Ctor_with_one_dependency_param_where.cs" />
+    <Compile Include="Automatic_factory\Creates_instance\Of_type_with\Ctor_with_one_simple_param_where.cs" />
+    <Compile Include="Automatic_factory\Creates_instance\Of_type_with\Ctor_with_two_dependency_params_where.cs" />
+    <Compile Include="Automatic_factory\Creates_instance\When_null_supplied\To_type_with_ctor_with_two_dependency_params.cs" />
+    <Compile Include="Automatic_factory\For_singleton.cs" />
+    <Compile Include="Automatic_factory\For_type_with\Ctor_with_dependecy_tree.cs" />
+    <Compile Include="Automatic_factory\For_type_with\Ctor_with_two_params_of_same_type_with.cs" />
+    <Compile Include="Automatic_factory\Resolved_from_child_container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\ParameterizedAutoFactory.Unity.Tests\**\*.*">
-      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
-    </Compile>
+    <Compile Include="Sandbox.cs" />
+    <Compile Include="Support\ContainerBuilder.cs" />
+    <Compile Include="Support\InjectedTypes\TypeWithCtorWithOneDependencyParam.cs" />
+    <Compile Include="Support\InjectedTypes\TypeWithCtorWithOneSimpleAndOneDependencyParam.cs" />
+    <Compile Include="Support\InjectedTypes\TypeWithCtorWithOneSimpleParam.cs" />
+    <Compile Include="Support\InjectedTypes\TypeWithCtorWithTwoDependencyParams.cs" />
+    <Compile Include="Support\InjectedTypes\TypeWithCtorWithTwoDependencyParamsOfSameType.cs" />
+    <Compile Include="Support\InjectedTypes\TypeWithCtorWithTwoSimpleParams.cs" />
+    <Compile Include="Support\InjectedTypes\TypeWithParameterlessCtor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

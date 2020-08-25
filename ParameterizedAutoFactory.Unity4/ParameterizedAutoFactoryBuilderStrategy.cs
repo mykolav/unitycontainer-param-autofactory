@@ -1,16 +1,8 @@
 using System.Linq;
-using Unity.ParameterizedAutoFactory.Core;
-#if UNITY4_0_1
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
-using ParameterByTypeOverride=ParameterizedAutoFactory.Unity4.ParameterByTypeOverride;
-#elif UNITY5_X
-using Unity;
-using Unity.Resolution;
-using Unity.Builder;
-using Unity.Builder.Strategy;
-using ParameterByTypeOverride=ParameterizedAutoFactory.Unity5.ParameterByTypeOverride;
-#endif
+using ParameterizedAutoFactory.Unity4;
+using Unity.ParameterizedAutoFactory.Core;
 
 namespace ParameterizedAutoFactory.Unity
 {
@@ -38,52 +30,27 @@ namespace ParameterizedAutoFactory.Unity
 
         public override void PreBuildUp(IBuilderContext context)
         {
-#if UNITY4_0_1
             var strategy = GetOverridingStrategy(context);
             strategy.DoPreBuildUp(context);
-#elif UNITY5_X
-            DoPreBuildUp(context);
-#endif
         }
 
         private void DoPreBuildUp(IBuilderContext context)
         {
-            var container = GetContainer(context);
             var type = context.OriginalBuildKey.Type;
 
             const string withoutNameOrAnyName = "";
-#if UNITY4_0_1
+
             var foundOrCreated = _autoFactoryProvider.TryBuildAutoFactory(
                 typeOfAutoFactory: type,
-                container: container,
-                isRegisteredInContainer: () => container.IsRegistered(type, withoutNameOrAnyName),
+                container: _container,
+                isRegisteredInContainer: () => _container.IsRegistered(type, withoutNameOrAnyName),
                 autoFactory: out var autoFactory);
 
             if (!foundOrCreated)
                 return;
-#elif UNITY5_X
-            var foundOrCreated = _autoFactoryProvider.TryGetOrBuildAutoFactoryCreator(
-                typeOfAutoFactory: type,
-                isRegisteredInContainer: () => container.IsRegistered(type, withoutNameOrAnyName),
-                createAutoFactory: out var createAutoFactory);
-
-            if (!foundOrCreated)
-                return;
-
-            var autoFactory = createAutoFactory(container);
-#endif
 
             context.Existing = autoFactory;
             context.BuildComplete = true;
-        }
-
-        private IUnityContainer GetContainer(IBuilderContext context)
-        {
-#if UNITY4_0_1
-            return _container;
-#elif UNITY5_X
-            return context.Container;
-#endif
         }
 
         private ParameterizedAutoFactoryBuilderStrategy GetOverridingStrategy(IBuilderContext context) 
