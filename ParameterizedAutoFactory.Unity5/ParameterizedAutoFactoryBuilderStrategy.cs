@@ -1,11 +1,10 @@
-using Unity.ParameterizedAutoFactory.Core;
 using Unity;
 using Unity.Builder;
+using Unity.ParameterizedAutoFactory.Core;
 using Unity.Resolution;
 using Unity.Strategies;
-using ParameterizedAutoFactory.Unity5;
 
-namespace ParameterizedAutoFactory.Unity
+namespace ParameterizedAutoFactory.Unity5
 {
     /// <summary>
     /// The <see cref="PreBuildUp" /> method of this class gets

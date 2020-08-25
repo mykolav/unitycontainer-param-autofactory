@@ -2,10 +2,9 @@
 using FluentAssertions;
 using Microsoft.Practices.Unity;
 using ParameterizedAutoFactory.Unity;
-using ParameterizedAutoFactory.Unity4;
 using Xunit;
 
-namespace ParameterizedAutoFactory.Tests
+namespace ParameterizedAutoFactory.Unity4.Tests
 {
     public class Sandbox
     {

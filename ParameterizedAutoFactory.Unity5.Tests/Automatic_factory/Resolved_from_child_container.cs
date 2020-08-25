@@ -1,14 +1,10 @@
 ﻿using System;
 using FluentAssertions;
-using ParameterizedAutoFactory.Tests.Support;
 using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
+using ParameterizedAutoFactory.Unity5.Tests.Support;
 using Xunit;
-#if UNITY4_0_1
-using Microsoft.Practices.Unity;
-#elif UNITY5_X
 using Unity;
 using Unity.Lifetime;
-#endif
 
 namespace ParameterizedAutoFactory.Tests.Automatic_factory
 {
@@ -42,9 +38,7 @@ namespace ParameterizedAutoFactory.Tests.Automatic_factory
             container.RegisterType<TypeWithCtorWithTwoDependencyParams>(new HierarchicalLifetimeManager());
 
             var childContainer = container.CreateChildContainer();
-#if UNITY4_0_1
             childContainer.AddParameterizedAutoFactoryExtension();
-#endif
 
             var autofactory0 = container.Resolve<Func<
                 TypeWithParameterlessCtor,

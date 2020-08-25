@@ -1,12 +1,6 @@
-#if UNITY4_0_1
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.ObjectBuilder;
-#elif UNITY5_X
-using Unity;
+using ParameterizedAutoFactory.Unity5;
 using Unity.Builder;
 using Unity.Extension;
-
-#endif
 
 namespace ParameterizedAutoFactory.Unity
 {

@@ -1,15 +1,9 @@
 ﻿using System;
 using FluentAssertions;
-using ParameterizedAutoFactory.Tests.Support;
-using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
-using Xunit;
-#if UNITY4_0_1
 using Microsoft.Practices.Unity;
-#elif UNITY5_X
-using Unity;
-using Unity.Lifetime;
-using Unity.Resolution;
-#endif
+using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
+using ParameterizedAutoFactory.Unity4.Tests.Support;
+using Xunit;
 
 namespace ParameterizedAutoFactory.Tests.Automatic_factory
 {

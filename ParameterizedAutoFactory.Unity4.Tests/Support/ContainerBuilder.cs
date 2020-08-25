@@ -1,13 +1,8 @@
-﻿using ParameterizedAutoFactory.Unity;
-#if UNITY4_0_1
-using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
-#elif UNITY5_X
-using Unity;
-using Unity.Interception;
-#endif
+using ParameterizedAutoFactory.Unity;
 
-namespace ParameterizedAutoFactory.Tests.Support
+namespace ParameterizedAutoFactory.Unity4.Tests.Support
 {
     internal class ContainerBuilder
     {
