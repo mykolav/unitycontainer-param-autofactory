@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Unity;
 using Unity.Builder;
 using Unity.Injection;
-using Unity.Policy;
 using Unity.Processors;
 using Unity.Resolution;
 
@@ -49,12 +49,12 @@ namespace ParameterizedAutoFactory.Unity5
         {
             if (!(context is BuilderContext builderContext))
                 return _parameterValue;
+            if (!(builderContext.Container is UnityContainer container))
+                return _parameterValue;
 
             // Hopefully, we'll manage to find the same constructor
             // that UnityContainer is going to use to create an instance of the target type.
-            var selector = new ConstructorProcessor(
-                policySet: builderContext.Registration, 
-                isTypeRegistered: t => builderContext.Container.IsRegistered(t, name: null));
+            var selector = new ConstructorProcessor(policySet: builderContext.Registration, container);
 
             var selection = selector
                 .Select(builderContext.Type, builderContext.Registration)
@@ -100,12 +100,15 @@ namespace ParameterizedAutoFactory.Unity5
 
             var constructorSignature = CreateSignatureString(constructor);
 
-            throw new InvalidOperationException(
-                $"The constructor {constructorSignature} " +
-                $"has {ctorParametersOfType.Count} parameters " +
-                $"of type {_parameterType.FullName}." +
-                $"{Environment.NewLine}" +
-                "Do not know which one you meant to override."
+            throw new ResolutionFailedException(
+                type: constructor.DeclaringType,
+                name: null,
+                message: 
+                    $"The constructor {constructorSignature} " +
+                    $"has {ctorParametersOfType.Count} parameters " +
+                    $"of type {_parameterType.FullName}." +
+                    $"{Environment.NewLine}" +
+                    "Do not know which one you meant to override."
             );
         }
 
