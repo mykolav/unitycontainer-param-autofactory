@@ -36,7 +36,7 @@ namespace ParameterizedAutoFactory.Unity4.Tests
             public void WarmUp() { /* ... */ }
         }
 
-        //[Fact]
+        [Fact(Skip = "...")]
         public void Factory_parameters_override_matching_constructor_parameters()
         {
             // Setup the container

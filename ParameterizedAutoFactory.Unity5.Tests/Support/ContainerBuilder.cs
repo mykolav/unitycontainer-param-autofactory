@@ -24,6 +24,8 @@ namespace ParameterizedAutoFactory.Unity5.Tests.Support
         public IUnityContainer Build()
         {
             var container = new UnityContainer();
+            
+            container.AddNewExtension<Diagnostic>();
 
             if (_addInterception)
                 container.AddNewExtension<Interception>();
