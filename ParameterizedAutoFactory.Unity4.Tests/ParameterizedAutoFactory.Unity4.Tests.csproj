@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+    
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>ParameterizedAutoFactory.Unity4.Tests</RootNamespace>
         <AssemblyName>ParameterizedAutoFactory.Unity4.Tests</AssemblyName>
         <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
@@ -29,12 +29,6 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
-
-    <ItemGroup>
-        <Reference Include="System"/>
-        <Reference Include="System.Core"/>
-        <Reference Include="Microsoft.CSharp"/>
-    </ItemGroup>
 
     <ItemGroup>
         <Compile Include="Automatic_factory\Creates_instance\Of_type_with\Ctor_with_one_dependency_param_where.cs"/>
@@ -63,18 +57,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommonServiceLocator" Version="2.0.7"/>
         <PackageReference Include="FluentAssertions" Version="6.12.0"/>
-        <PackageReference Include="System.ValueTuple" Version="4.5.0"/>
         <PackageReference Include="Unity" Version="4.0.1"/>
         <PackageReference Include="Unity.Interception" Version="4.0.1"/>
-        <PackageReference Include="xunit" Version="2.6.6"/>
-        <PackageReference Include="xunit.abstractions" Version="2.0.3"/>
-        <PackageReference Include="xunit.analyzers" Version="1.10.0"/>
-        <PackageReference Include="xunit.assert" Version="2.6.6"/>
-        <PackageReference Include="xunit.core" Version="2.6.6"/>
-        <PackageReference Include="xunit.extensibility.core" Version="2.6.6"/>
-        <PackageReference Include="xunit.extensibility.execution" Version="2.6.6"/>
+        <PackageReference Include="xunit" Version="2.6.6" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.collector" Version="6.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
