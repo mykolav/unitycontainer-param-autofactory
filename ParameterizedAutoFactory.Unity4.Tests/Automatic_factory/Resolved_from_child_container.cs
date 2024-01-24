@@ -1,58 +1,57 @@
 ﻿using System;
 using FluentAssertions;
+using Microsoft.Practices.Unity;
 using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
 using ParameterizedAutoFactory.Unity4.Tests.Support;
 using Xunit;
-using Microsoft.Practices.Unity;
 
-namespace ParameterizedAutoFactory.Tests.Automatic_factory
+namespace ParameterizedAutoFactory.Tests.Automatic_factory;
+
+public class Resolved_from_child_container
 {
-    public class Resolved_from_child_container
+    [Fact]
+    public void Is_not_ReferenceEquals_with_autofactory_resolved_from_parent_container()
     {
-        [Fact]
-        public void Is_not_ReferenceEquals_with_autofactory_resolved_from_parent_container()
-        {
-            // Arrange
-            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
-            var childContainer = container.CreateChildContainer().AddParameterizedAutoFactoryExtension();
+        // Arrange
+        var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
+        var childContainer = container.CreateChildContainer().AddParameterizedAutoFactoryExtension();
 
-            // Act
-            var autofactory0 = container.Resolve<Func<
-                TypeWithParameterlessCtor,
-                TypeWithCtorWithTwoDependencyParams>>();
+        // Act
+        var autofactory0 = container.Resolve<Func<
+            TypeWithParameterlessCtor,
+            TypeWithCtorWithTwoDependencyParams>>();
 
-            var autofactory1 = childContainer.Resolve<Func<
-                TypeWithParameterlessCtor,
-                TypeWithCtorWithTwoDependencyParams>>();
+        var autofactory1 = childContainer.Resolve<Func<
+            TypeWithParameterlessCtor,
+            TypeWithCtorWithTwoDependencyParams>>();
 
-            // Assert
-            autofactory1.Should().NotBeSameAs(autofactory0);
-        }
-        
-        [Fact]
-        public void Creates_product_which_is_not_ReferenceEquals_with_product_of_autofactory_resolved_from_parent_container()
-        {
-            // Arrange
-            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
-            container.RegisterType<TypeWithCtorWithTwoDependencyParams>(new HierarchicalLifetimeManager());
+        // Assert
+        autofactory1.Should().NotBeSameAs(autofactory0);
+    }
 
-            var childContainer = container.CreateChildContainer();
-            childContainer.AddParameterizedAutoFactoryExtension();
+    [Fact]
+    public void Creates_product_which_is_not_ReferenceEquals_with_product_of_autofactory_resolved_from_parent_container()
+    {
+        // Arrange
+        var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
+        container.RegisterType<TypeWithCtorWithTwoDependencyParams>(new HierarchicalLifetimeManager());
 
-            var autofactory0 = container.Resolve<Func<
-                TypeWithParameterlessCtor,
-                TypeWithCtorWithTwoDependencyParams>>();
+        var childContainer = container.CreateChildContainer();
+        childContainer.AddParameterizedAutoFactoryExtension();
 
-            var autofactory1 = childContainer.Resolve<Func<
-                TypeWithParameterlessCtor,
-                TypeWithCtorWithTwoDependencyParams>>();
-            
-            // Act
-            var product0 = autofactory0(new TypeWithParameterlessCtor());
-            var product1 = autofactory1(new TypeWithParameterlessCtor());
+        var autofactory0 = container.Resolve<Func<
+            TypeWithParameterlessCtor,
+            TypeWithCtorWithTwoDependencyParams>>();
 
-            // Assert
-            product0.Should().NotBeSameAs(product1);
-        }
+        var autofactory1 = childContainer.Resolve<Func<
+            TypeWithParameterlessCtor,
+            TypeWithCtorWithTwoDependencyParams>>();
+
+        // Act
+        var product0 = autofactory0(new TypeWithParameterlessCtor());
+        var product1 = autofactory1(new TypeWithParameterlessCtor());
+
+        // Assert
+        product0.Should().NotBeSameAs(product1);
     }
 }

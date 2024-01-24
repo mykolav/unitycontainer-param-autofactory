@@ -1,12 +1,11 @@
-namespace ParameterizedAutoFactory.Tests.Support.InjectedTypes
-{
-    public class TypeWithCtorWithOneDependencyParam
-    {
-        public TypeWithCtorWithOneDependencyParam(TypeWithParameterlessCtor typeWithParameterlessCtor)
-        {
-            TypeWithParameterlessCtor = typeWithParameterlessCtor;
-        }
+namespace ParameterizedAutoFactory.Tests.Support.InjectedTypes;
 
-        public TypeWithParameterlessCtor TypeWithParameterlessCtor { get; }
+public class TypeWithCtorWithOneDependencyParam
+{
+    public TypeWithCtorWithOneDependencyParam(TypeWithParameterlessCtor typeWithParameterlessCtor)
+    {
+        TypeWithParameterlessCtor = typeWithParameterlessCtor;
     }
+
+    public TypeWithParameterlessCtor TypeWithParameterlessCtor { get; }
 }

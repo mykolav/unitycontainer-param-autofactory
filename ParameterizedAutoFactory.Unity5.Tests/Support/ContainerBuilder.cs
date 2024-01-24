@@ -2,44 +2,43 @@
 using Unity;
 using Unity.Interception;
 
-namespace ParameterizedAutoFactory.Unity5.Tests.Support
+namespace ParameterizedAutoFactory.Unity5.Tests.Support;
+
+internal class ContainerBuilder
 {
-    internal class ContainerBuilder
+    private bool _addParameterizedAutoFactoryExtension;
+    private bool _addInterception;
+
+    public ContainerBuilder AddParameterizedAutoFactoryExtension()
     {
-        private bool _addParameterizedAutoFactoryExtension;
-        private bool _addInterception;
-
-        public ContainerBuilder AddParameterizedAutoFactoryExtension()
-        {
-            _addParameterizedAutoFactoryExtension = true;
-            return this;
-        }
-
-        public ContainerBuilder AddInterception()
-        {
-            _addInterception = true;
-            return this;
-        }
-
-        public IUnityContainer Build()
-        {
-            var container = new UnityContainer();
-            
-            container.AddNewExtension<Diagnostic>();
-
-            if (_addInterception)
-                container.AddNewExtension<Interception>();
-
-            if (_addParameterizedAutoFactoryExtension)
-                container.AddParameterizedAutoFactoryExtension();
-
-            return container;
-        }
+        _addParameterizedAutoFactoryExtension = true;
+        return this;
     }
 
-    internal static class UnityContainerExtensions
+    public ContainerBuilder AddInterception()
     {
-        internal static IUnityContainer AddParameterizedAutoFactoryExtension(this IUnityContainer container)
-            => container.AddNewExtension<UnityParameterizedAutoFactoryExtension>();
+        _addInterception = true;
+        return this;
     }
+
+    public IUnityContainer Build()
+    {
+        var container = new UnityContainer();
+
+        container.AddNewExtension<Diagnostic>();
+
+        if (_addInterception)
+            container.AddNewExtension<Interception>();
+
+        if (_addParameterizedAutoFactoryExtension)
+            container.AddParameterizedAutoFactoryExtension();
+
+        return container;
+    }
+}
+
+internal static class UnityContainerExtensions
+{
+    internal static IUnityContainer AddParameterizedAutoFactoryExtension(this IUnityContainer container)
+        => container.AddNewExtension<UnityParameterizedAutoFactoryExtension>();
 }

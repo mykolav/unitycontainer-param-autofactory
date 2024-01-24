@@ -1,12 +1,11 @@
-namespace ParameterizedAutoFactory.Tests.Support.InjectedTypes
-{
-    public class TypeWithCtorWithOneSimpleParam
-    {
-        public TypeWithCtorWithOneSimpleParam(int param0)
-        {
-            Param0 = param0;
-        }
+namespace ParameterizedAutoFactory.Tests.Support.InjectedTypes;
 
-        public int Param0 { get; }
+public class TypeWithCtorWithOneSimpleParam
+{
+    public TypeWithCtorWithOneSimpleParam(int param0)
+    {
+        Param0 = param0;
     }
+
+    public int Param0 { get; }
 }

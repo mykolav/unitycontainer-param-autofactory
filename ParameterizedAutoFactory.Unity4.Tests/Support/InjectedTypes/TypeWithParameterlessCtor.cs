@@ -1,6 +1,5 @@
-namespace ParameterizedAutoFactory.Tests.Support.InjectedTypes
+namespace ParameterizedAutoFactory.Tests.Support.InjectedTypes;
+
+public class TypeWithParameterlessCtor
 {
-    public class TypeWithParameterlessCtor
-    {
-    }
 }

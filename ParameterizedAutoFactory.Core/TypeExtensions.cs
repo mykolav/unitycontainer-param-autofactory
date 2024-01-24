@@ -2,70 +2,69 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Unity.ParameterizedAutoFactory.Core
+namespace Unity.ParameterizedAutoFactory.Core;
+
+internal static class TypeExtensions
 {
-    internal static class TypeExtensions
+    /// <summary>
+    /// This method finds a constructor that
+    ///     1) has excactly the same number of params as the number of elements in <see cref="paramTypes" />
+    ///     2) parameters of the given types
+    ///     3) are in the same order they are in <see cref="paramTypes" />
+    /// A method with the same name and purpose is built-in in netstandard-1.5 and on,
+    /// but we're out of luck as we have to target netstandard-1.1
+    /// </summary>
+    public static ConstructorInfo GetConstructor(
+        this TypeInfo typeInfo,
+        Type[] paramTypes)
     {
-        /// <summary>
-        /// This method finds a constructor that
-        ///     1) has excactly the same number of params as the number of elements in <see cref="paramTypes" />
-        ///     2) parameters of the given types
-        ///     3) are in the same order they are in <see cref="paramTypes" />
-        /// A method with the same name and purpose is built-in in netstandard-1.5 and on,
-        /// but we're out of luck as we have to target netstandard-1.1
-        /// </summary>
-        public static ConstructorInfo GetConstructor(
-            this TypeInfo typeInfo,
-            Type[] paramTypes)
+        bool Matches(ConstructorInfo ci)
         {
-            bool Matches(ConstructorInfo ci)
+            var parameters = ci.GetParameters();
+            if (parameters.Length != paramTypes.Length)
+                return false;
+
+            for (var i = 0; i < parameters.Length; ++i)
             {
-                var parameters = ci.GetParameters();
-                if (parameters.Length != paramTypes.Length)
+                if (parameters[i].ParameterType != paramTypes[i])
                     return false;
-
-                for (var i = 0; i < parameters.Length; ++i)
-                {
-                    if (parameters[i].ParameterType != paramTypes[i])
-                        return false;
-                }
-
-                return true;
             }
 
-            var constructorInfo = typeInfo.DeclaredConstructors.Single(Matches);
-            return constructorInfo;
+            return true;
         }
 
-        /// <summary>
-        /// Checks whether <paramref name="type"/> is
-        /// a func of the form Func{TArg0, TArg1, ..., TArgN, TResult}
-        /// </summary>
-        /// <param name="type">The type to inspect</param>
-        /// <returns>
-        /// true if <paramref name="type"/> is a func of the expected form.
-        /// false -- otherwise
-        /// </returns>
-        public static bool IsParameterizedFunc(this Type type)
-        {
-            var isParameterizedFunc =
-                type.IsFunc() &&
-                type.GetTypeInfo().GenericTypeArguments.Length > 1;
-            return isParameterizedFunc;
-        }
+        var constructorInfo = typeInfo.DeclaredConstructors.Single(Matches);
+        return constructorInfo;
+    }
 
-        private static bool IsFunc(this Type type)
-        {
-            var isFunc = 
-                type.IsDelegate() &&
-                type.Name.StartsWith("Func`", StringComparison.Ordinal);
-            return isFunc;
-        }
+    /// <summary>
+    /// Checks whether <paramref name="type"/> is
+    /// a func of the form Func{TArg0, TArg1, ..., TArgN, TResult}
+    /// </summary>
+    /// <param name="type">The type to inspect</param>
+    /// <returns>
+    /// true if <paramref name="type"/> is a func of the expected form.
+    /// false -- otherwise
+    /// </returns>
+    public static bool IsParameterizedFunc(this Type type)
+    {
+        var isParameterizedFunc =
+            type.IsFunc() &&
+            type.GetTypeInfo().GenericTypeArguments.Length > 1;
+        return isParameterizedFunc;
+    }
 
-        private static bool IsDelegate(this Type type)
-        {
-            var isDelegate = type.GetTypeInfo().IsSubclassOf(typeof(Delegate));
-            return isDelegate;
-        }
+    private static bool IsFunc(this Type type)
+    {
+        var isFunc =
+            type.IsDelegate() &&
+            type.Name.StartsWith("Func`", StringComparison.Ordinal);
+        return isFunc;
+    }
+
+    private static bool IsDelegate(this Type type)
+    {
+        var isDelegate = type.GetTypeInfo().IsSubclassOf(typeof(Delegate));
+        return isDelegate;
     }
 }

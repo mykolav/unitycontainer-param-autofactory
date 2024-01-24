@@ -2,101 +2,100 @@ using System;
 using FluentAssertions;
 using ParameterizedAutoFactory.Tests.Support.InjectedTypes;
 using ParameterizedAutoFactory.Unity5.Tests.Support;
-using Xunit;
 using Unity;
+using Xunit;
 
-namespace ParameterizedAutoFactory.Tests.Automatic_factory.Creates_instance.Of_type_with
+namespace ParameterizedAutoFactory.Tests.Automatic_factory.Creates_instance.Of_type_with;
+
+public class Ctor_with_two_dependency_params_where
 {
-    public class Ctor_with_two_dependency_params_where
+    /// <summary>
+    /// Make sure we didn't introduce regressions into Unity's built-in Func resolution.
+    /// </summary>
+    [Fact]
+    public void Zero_params_are_supplied_through_factory()
     {
-        /// <summary>
-        /// Make sure we didn't introduce regressions into Unity's built-in Func resolution.
-        /// </summary>
-        [Fact]
-        public void Zero_params_are_supplied_through_factory()
-        {
-            // Arrange
-            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
+        // Arrange
+        var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
 
-            // Act
-            var create = container.Resolve<Func<TypeWithCtorWithTwoDependencyParams>>();
-            var instance = create();
+        // Act
+        var create = container.Resolve<Func<TypeWithCtorWithTwoDependencyParams>>();
+        var instance = create();
 
-            // Assert
-            instance.Should().NotBeNull();
-            instance.TypeWithParameterlessCtor.Should().NotBeNull();
-            instance.TypeWithCtorWithOneDependencyParam.Should().NotBeNull();
-        }
+        // Assert
+        instance.Should().NotBeNull();
+        instance.TypeWithParameterlessCtor.Should().NotBeNull();
+        instance.TypeWithCtorWithOneDependencyParam.Should().NotBeNull();
+    }
 
-        [Fact]
-        public void First_param_is_supplied_through_factory()
-        {
-            // Arrange
-            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
-            var typeWithParameterlessCtor = new TypeWithParameterlessCtor();
+    [Fact]
+    public void First_param_is_supplied_through_factory()
+    {
+        // Arrange
+        var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
+        var typeWithParameterlessCtor = new TypeWithParameterlessCtor();
 
-            // Act
-            var create = container.Resolve<Func<
-                TypeWithParameterlessCtor,
-                TypeWithCtorWithTwoDependencyParams>>();
-            var instance = create(typeWithParameterlessCtor);
+        // Act
+        var create = container.Resolve<Func<
+            TypeWithParameterlessCtor,
+            TypeWithCtorWithTwoDependencyParams>>();
+        var instance = create(typeWithParameterlessCtor);
 
-            // Assert
-            instance.Should().NotBeNull();
-            instance.TypeWithParameterlessCtor.Should().BeSameAs(typeWithParameterlessCtor);
-            instance.TypeWithCtorWithOneDependencyParam.Should().NotBeNull();
-        }
+        // Assert
+        instance.Should().NotBeNull();
+        instance.TypeWithParameterlessCtor.Should().BeSameAs(typeWithParameterlessCtor);
+        instance.TypeWithCtorWithOneDependencyParam.Should().NotBeNull();
+    }
 
-        [Fact]
-        public void Second_param_is_supplied_through_factory()
-        {
-            // Arrange
-            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
-            var typeWithCtorWithOneDependencyParam = 
-                new TypeWithCtorWithOneDependencyParam(
-                    new TypeWithParameterlessCtor()
-                );
+    [Fact]
+    public void Second_param_is_supplied_through_factory()
+    {
+        // Arrange
+        var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
+        var typeWithCtorWithOneDependencyParam =
+            new TypeWithCtorWithOneDependencyParam(
+                new TypeWithParameterlessCtor()
+            );
 
-            // Act
-            var create = container.Resolve<Func<
-                TypeWithCtorWithOneDependencyParam,
-                TypeWithCtorWithTwoDependencyParams>>();
-            var instance = create(typeWithCtorWithOneDependencyParam);
+        // Act
+        var create = container.Resolve<Func<
+            TypeWithCtorWithOneDependencyParam,
+            TypeWithCtorWithTwoDependencyParams>>();
+        var instance = create(typeWithCtorWithOneDependencyParam);
 
-            // Assert
-            instance.Should().NotBeNull();
-            instance.TypeWithParameterlessCtor.Should().NotBeNull();
-            instance.TypeWithCtorWithOneDependencyParam
-                .Should()
-                .BeSameAs(typeWithCtorWithOneDependencyParam);
-        }
+        // Assert
+        instance.Should().NotBeNull();
+        instance.TypeWithParameterlessCtor.Should().NotBeNull();
+        instance.TypeWithCtorWithOneDependencyParam
+            .Should()
+            .BeSameAs(typeWithCtorWithOneDependencyParam);
+    }
 
-        [Fact]
-        public void Both_params_are_supplied_through_factory()
-        {
-            // Arrange
-            var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
-            var typeWithParameterlessCtor = new TypeWithParameterlessCtor();
-            var typeWithCtorWithOneDependencyParam = 
-                new TypeWithCtorWithOneDependencyParam(
-                    new TypeWithParameterlessCtor()
-                );
+    [Fact]
+    public void Both_params_are_supplied_through_factory()
+    {
+        // Arrange
+        var container = new ContainerBuilder().AddParameterizedAutoFactoryExtension().Build();
+        var typeWithParameterlessCtor = new TypeWithParameterlessCtor();
+        var typeWithCtorWithOneDependencyParam =
+            new TypeWithCtorWithOneDependencyParam(
+                new TypeWithParameterlessCtor()
+            );
 
-            // Act
-            var create = container.Resolve<Func<
-                TypeWithParameterlessCtor,
-                TypeWithCtorWithOneDependencyParam,
-                TypeWithCtorWithTwoDependencyParams>>();
-            var instance = create(
-                typeWithParameterlessCtor,
-                typeWithCtorWithOneDependencyParam);
+        // Act
+        var create = container.Resolve<Func<
+            TypeWithParameterlessCtor,
+            TypeWithCtorWithOneDependencyParam,
+            TypeWithCtorWithTwoDependencyParams>>();
+        var instance = create(
+            typeWithParameterlessCtor,
+            typeWithCtorWithOneDependencyParam);
 
-            // Assert
-            instance.Should().NotBeNull();
-            instance.TypeWithParameterlessCtor.Should().BeSameAs(typeWithParameterlessCtor);
-            instance.TypeWithCtorWithOneDependencyParam
-                .Should()
-                .BeSameAs(typeWithCtorWithOneDependencyParam);
-        }
+        // Assert
+        instance.Should().NotBeNull();
+        instance.TypeWithParameterlessCtor.Should().BeSameAs(typeWithParameterlessCtor);
+        instance.TypeWithCtorWithOneDependencyParam
+            .Should()
+            .BeSameAs(typeWithCtorWithOneDependencyParam);
     }
 }
