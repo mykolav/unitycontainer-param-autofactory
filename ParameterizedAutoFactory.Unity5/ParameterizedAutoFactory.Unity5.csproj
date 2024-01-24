@@ -1,44 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard1.5</TargetFramework>
-    <Version>0.0.5</Version>
-    <Authors>Mykola Musiienko</Authors>
-    <Product>ParameterizedAutoFactory.Unity5</Product>
-    <Description>A UnityContainer extension inspired by Autofac's parameterized instantiation. 
-Generates implementations of Func&lt;TParam0, TParam1, ..., TDependency&gt; while resolving types with such a dependency.
-This package is compatible with Unity v5.x</Description>
-    <Copyright>Copyright © Mykola Musiienko 2018</Copyright>
-    <PackageLicenseUrl>https://github.com/mykolav/unitycontainer-param-autofactory/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/mykolav/unitycontainer-param-autofactory</PackageProjectUrl>
-    <PackageIconUrl>https://avatars1.githubusercontent.com/u/14280254</PackageIconUrl>
-    <RepositoryUrl>https://github.com/mykolav/unitycontainer-param-autofactory</RepositoryUrl>
-    <PackageTags>UnityContainer Unity.Container Microsoft.Practices.Unity IoC extension ParameterizedAutoFactory AutoFactory</PackageTags>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <PackageReleaseNotes>Types which are not part of the public API made internal.</PackageReleaseNotes>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <AssemblyVersion>0.0.5.0</AssemblyVersion>
-    <FileVersion>0.0.5.0</FileVersion>  
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard1.5</TargetFramework>
+        <LangVersion>11</LangVersion>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_5;UNITY5_X</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DefineConstants>TRACE;DEBUG;NETSTANDARD1_5;UNITY5_X</DefineConstants>
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;RELEASE;NETSTANDARD1_5;UNITY5_X</DefineConstants>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DefineConstants>TRACE;RELEASE;NETSTANDARD1_5;UNITY5_X</DefineConstants>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Unity" Version="5.11.1" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\ParameterizedAutoFactory.Core\ParameterizedAutoFactory.Core.csproj">
+            <Private>true</Private>
+        </ProjectReference>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ParameterizedAutoFactory.Core\ParameterizedAutoFactory.Core.csproj">
-      <Private>true</Private>
-    </ProjectReference>
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Unity" Version="5.11.1"/>
+    </ItemGroup>
 
 </Project>

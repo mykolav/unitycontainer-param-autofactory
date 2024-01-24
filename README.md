@@ -142,5 +142,4 @@ container.AddExtension(extension);
 
 # License
 
-The [ParameterizedAutoFactory](https://github.com/mykolav/unitycontainer-param-autofactory) extension is licensed under the MIT license.  
-So it can be used freely in commercial applications.
+The extension is licensed under the MIT license.
